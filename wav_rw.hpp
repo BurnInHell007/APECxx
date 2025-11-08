@@ -35,3 +35,5 @@ struct wav_header_file {
 };
 
 bool readWAVHeader(const std::string& file_path, wav_header_ptr &header_ptr);
+
+bool writeBackWAV(const std::string& init_file_path, const std::string& final_file_path);
