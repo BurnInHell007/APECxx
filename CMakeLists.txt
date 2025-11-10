@@ -46,6 +46,7 @@ include_directories(${CMAKE_SOURCE_DIR}/include)
 
 # Source files
 set(AUDIO_ENGINE_SOURCES
+    src/audio_buffer.cpp
     src/wav_reader.cpp
     src/wav_writer.cpp
 )
