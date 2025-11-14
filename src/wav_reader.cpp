@@ -20,6 +20,31 @@ namespace WReader
     {
         return static_cast<int8_t>(sample / 256);
     }
+
+    template <typename T>
+    T convert_sample(float sample)
+    {
+        return sample;
+    }
+
+    template <>
+    int16_t convert_sample<int16_t>(float sample)
+    {
+        return static_cast<int16_t>(sample * 32768);
+    }
+
+    template <>
+    int8_t convert_sample<int8_t>(float sample)
+    {
+        return static_cast<int8_t>(sample * 256);
+    }
+
+    template <typename T>
+    T convert_sample(int8_t sample)
+    {
+        return sample;
+    }
+
 }
 
 /// @brief Creates a WAV Reader instance that can read any WAV file
@@ -110,7 +135,7 @@ void WavReader::read_header()
 }
 
 /// @brief Copy values into Audio Buffer
-/// @tparam SampleType 
+/// @tparam SampleType
 /// @return AudioBuffer with values
 template <typename SampleType>
 AudioBuffer<SampleType> WavReader::read()
@@ -119,30 +144,33 @@ AudioBuffer<SampleType> WavReader::read()
 
     AudioBuffer<SampleType> buffer(num_samples_, num_channels_);
 
-    if(bits_per_sample_ == 32) 
+    if (bits_per_sample_ == 32)
     {
         std::vector<float> temp(num_samples_ * num_channels_);
         std::fread(temp.data(), sizeof(float), temp.size(), file_.get());
 
-        for (size_t i = 0; i < temp.size(); i++) {
+        for (size_t i = 0; i < temp.size(); i++)
+        {
             buffer.data()[i] = WReader::convert_sample<SampleType>(temp[i]);
         }
     }
-    else if(bits_per_sample_ == 16) 
+    else if (bits_per_sample_ == 16)
     {
         std::vector<int16_t> temp(num_samples_ * num_channels_);
         std::fread(temp.data(), sizeof(int16_t), temp.size(), file_.get());
 
-        for (size_t i = 0; i < temp.size(); i++) {
+        for (size_t i = 0; i < temp.size(); i++)
+        {
             buffer.data()[i] = WReader::convert_sample<SampleType>(temp[i]);
         }
     }
-    else if(bits_per_sample_ == 8)
+    else if (bits_per_sample_ == 8)
     {
         std::vector<int8_t> temp(num_samples_ * num_channels_);
         std::fread(temp.data(), sizeof(int8_t), temp.size(), file_.get());
 
-        for(size_t i = 0; i < temp.size(); i++) {
+        for (size_t i = 0; i < temp.size(); i++)
+        {
             buffer.data()[i] = WReader::convert_sample<SampleType>(temp[i]);
         }
     }

@@ -20,8 +20,31 @@ namespace WWriter
     {
         return static_cast<int8_t>(sample / 256);
     }
-}
 
+    template <typename T>
+    T convert_sample(float sample)
+    {
+        return sample;
+    }
+
+    template <>
+    int16_t convert_sample<int16_t>(float sample)
+    {
+        return static_cast<int16_t>(sample * 32768);
+    }
+
+    template <>
+    int8_t convert_sample<int8_t>(float sample)
+    {
+        return static_cast<int8_t>(sample * 256);
+    }
+
+    template <typename T>
+    T convert_sample(int8_t sample)
+    {
+        return sample;
+    }
+}
 
 /// @brief Wav writer instance for creating wav copies
 /// @param filename
