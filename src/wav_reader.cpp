@@ -1,6 +1,27 @@
 #include "audio_buffer.hpp"
 #include "wav_reader.hpp"
 
+namespace WReader
+{
+    template <typename T>
+    T convert_sample(int16_t sample)
+    {
+        return sample;
+    }
+
+    template <>
+    float convert_sample<float>(int16_t sample)
+    {
+        return static_cast<float>(sample) / 32768.0f;
+    }
+
+    template <>
+    int8_t convert_sample<int8_t>(int16_t sample)
+    {
+        return static_cast<int8_t>(sample / 256);
+    }
+}
+
 /// @brief Creates a WAV Reader instance that can read any WAV file
 /// @param filename
 WavReader::WavReader(const std::string &filename)
