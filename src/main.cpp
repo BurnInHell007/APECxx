@@ -1,23 +1,18 @@
-#include <cstring>
-#include <cstdint>
-#include <exception>
-#include <fstream>
-#include <iostream>
-#include <memory>
-#include <string>
-#include <stdexcept>
-#include <vector>
+#include "project.h"
 #include "wav_reader.hpp"
 #include "wav_writer.hpp"
 
-int main (int argc, char** argv) {
-    if(argc != 3) {
+int main(int argc, char **argv)
+{
+    if (argc != 3)
+    {
         std::cerr << "Usage: " << argv[0] << " <input.wav> <output.wav>\n";
 
         return -1;
     }
 
-    try {
+    try
+    {
         // Read Input file
         WavReader reader(argv[1]);
 
@@ -36,8 +31,9 @@ int main (int argc, char** argv) {
         writer.write(buffer);
 
         std::cout << "Successfully wrote " << argv[2] << "\n";
-
-    } catch (const std::exception& e) {
+    }
+    catch (const std::exception &e)
+    {
         std::cerr << "Error : " << e.what() << "\n";
         return 1;
     }
