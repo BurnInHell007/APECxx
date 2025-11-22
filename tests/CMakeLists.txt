@@ -1,19 +1,25 @@
 cmake_minimum_required(VERSION 4.2.0)
 
-set(This ExampleTests)
+set(This Tests)
 
-set(Sources 
-    "AudioBufferTests.cpp"
+set(Sources
+    "test_audio_buffer.cpp"
+    "test_wav_io.cpp"
 )
 
 add_executable(${This} ${Sources})
 
 target_link_libraries(${This} PUBLIC
     gtest_main
-    Example
+    APECxx
+)
+
+target_include_directories(${This} PRIVATE
+    ../include
 )
 
 add_test(
     NAME ${This}
     COMMAND ${This}
 )
+
