@@ -1,14 +1,34 @@
 cmake_minimum_required(VERSION 4.2.0)
 
-project(APECxx)
+set(This APECxx)
 
-# --- Define your executables ---
-# this will find all .cpp files in src and store them in var SOURCE
-file(GLOB SOURCES "src/*.cpp")
+project(${This} C CXX)
 
-# Final executables
-add_executable(${PROJECT_NAME} ${SOURCES})
+set(CMAKE_C_STANDARD 99)
+set(CMAKE_CXX_STANDARD 23)
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
-# --- Linking Include directory ---
-# this tells include folder to be added to search path
-target_include_directories(${PROJECT_NAME} PUBLIC include)
+enable_testing()
+
+add_subdirectory(googletest)
+
+set(Headers 
+    "include/audio_buffer.hpp"
+    "include/wav_reader.hpp"
+    "include/wav_writer.hpp"
+    "include/project.h"
+)
+
+# file(GLOB Sources "src/*.cpp")
+set(Sources 
+    "src/main.cpp"
+    "src/audio_buffer.cpp"
+    "src/wav_reader.cpp"
+    "src/wav_writer.cpp"
+)
+
+add_library(${This} ${Sources} ${Header})
+
+add_subdirectory(tests)
+
+target_include_directories(${This} PUBLIC "include")
