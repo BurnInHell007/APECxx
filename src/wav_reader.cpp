@@ -1,5 +1,5 @@
 #include "audio_buffer.hpp"
-#include "wav_reader.hpp"
+#include "wav_io/wav_reader.hpp"
 
 namespace WReader
 {

@@ -1,5 +1,5 @@
 #include "audio_buffer.hpp"
-#include "wav_writer.hpp"
+#include "wav_io/wav_writer.hpp"
 
 namespace WWriter
 {

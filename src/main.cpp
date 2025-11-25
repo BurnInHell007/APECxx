@@ -1,6 +1,6 @@
 #include "project.h"
-#include "wav_reader.hpp"
-#include "wav_writer.hpp"
+#include "wav_io/wav_reader.hpp"
+#include "wav_io/wav_writer.hpp"
 
 int main(int argc, char **argv)
 {

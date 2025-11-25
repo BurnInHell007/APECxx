@@ -191,6 +191,19 @@ APECxx/fast:
 .PHONY : APECxx/fast
 
 #=============================================================================
+# Target rules for targets named APECxx_Run
+
+# Build rule for target.
+APECxx_Run: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 APECxx_Run
+.PHONY : APECxx_Run
+
+# fast build rule for target.
+APECxx_Run/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\APECxx_Run.dir\build.make CMakeFiles/APECxx_Run.dir/build
+.PHONY : APECxx_Run/fast
+
+#=============================================================================
 # Target rules for targets named gmock
 
 # Build rule for target.
@@ -261,6 +274,7 @@ src/audio_buffer.obj: src/audio_buffer.cpp.obj
 # target to build an object file
 src/audio_buffer.cpp.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\APECxx.dir\build.make CMakeFiles/APECxx.dir/src/audio_buffer.cpp.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\APECxx_Run.dir\build.make CMakeFiles/APECxx_Run.dir/src/audio_buffer.cpp.obj
 .PHONY : src/audio_buffer.cpp.obj
 
 src/audio_buffer.i: src/audio_buffer.cpp.i
@@ -269,6 +283,7 @@ src/audio_buffer.i: src/audio_buffer.cpp.i
 # target to preprocess a source file
 src/audio_buffer.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\APECxx.dir\build.make CMakeFiles/APECxx.dir/src/audio_buffer.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\APECxx_Run.dir\build.make CMakeFiles/APECxx_Run.dir/src/audio_buffer.cpp.i
 .PHONY : src/audio_buffer.cpp.i
 
 src/audio_buffer.s: src/audio_buffer.cpp.s
@@ -277,6 +292,7 @@ src/audio_buffer.s: src/audio_buffer.cpp.s
 # target to generate assembly for a file
 src/audio_buffer.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\APECxx.dir\build.make CMakeFiles/APECxx.dir/src/audio_buffer.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\APECxx_Run.dir\build.make CMakeFiles/APECxx_Run.dir/src/audio_buffer.cpp.s
 .PHONY : src/audio_buffer.cpp.s
 
 src/main.obj: src/main.cpp.obj
@@ -285,6 +301,7 @@ src/main.obj: src/main.cpp.obj
 # target to build an object file
 src/main.cpp.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\APECxx.dir\build.make CMakeFiles/APECxx.dir/src/main.cpp.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\APECxx_Run.dir\build.make CMakeFiles/APECxx_Run.dir/src/main.cpp.obj
 .PHONY : src/main.cpp.obj
 
 src/main.i: src/main.cpp.i
@@ -293,6 +310,7 @@ src/main.i: src/main.cpp.i
 # target to preprocess a source file
 src/main.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\APECxx.dir\build.make CMakeFiles/APECxx.dir/src/main.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\APECxx_Run.dir\build.make CMakeFiles/APECxx_Run.dir/src/main.cpp.i
 .PHONY : src/main.cpp.i
 
 src/main.s: src/main.cpp.s
@@ -301,6 +319,7 @@ src/main.s: src/main.cpp.s
 # target to generate assembly for a file
 src/main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\APECxx.dir\build.make CMakeFiles/APECxx.dir/src/main.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\APECxx_Run.dir\build.make CMakeFiles/APECxx_Run.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
 src/wav_reader.obj: src/wav_reader.cpp.obj
@@ -309,6 +328,7 @@ src/wav_reader.obj: src/wav_reader.cpp.obj
 # target to build an object file
 src/wav_reader.cpp.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\APECxx.dir\build.make CMakeFiles/APECxx.dir/src/wav_reader.cpp.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\APECxx_Run.dir\build.make CMakeFiles/APECxx_Run.dir/src/wav_reader.cpp.obj
 .PHONY : src/wav_reader.cpp.obj
 
 src/wav_reader.i: src/wav_reader.cpp.i
@@ -317,6 +337,7 @@ src/wav_reader.i: src/wav_reader.cpp.i
 # target to preprocess a source file
 src/wav_reader.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\APECxx.dir\build.make CMakeFiles/APECxx.dir/src/wav_reader.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\APECxx_Run.dir\build.make CMakeFiles/APECxx_Run.dir/src/wav_reader.cpp.i
 .PHONY : src/wav_reader.cpp.i
 
 src/wav_reader.s: src/wav_reader.cpp.s
@@ -325,6 +346,7 @@ src/wav_reader.s: src/wav_reader.cpp.s
 # target to generate assembly for a file
 src/wav_reader.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\APECxx.dir\build.make CMakeFiles/APECxx.dir/src/wav_reader.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\APECxx_Run.dir\build.make CMakeFiles/APECxx_Run.dir/src/wav_reader.cpp.s
 .PHONY : src/wav_reader.cpp.s
 
 src/wav_writer.obj: src/wav_writer.cpp.obj
@@ -333,6 +355,7 @@ src/wav_writer.obj: src/wav_writer.cpp.obj
 # target to build an object file
 src/wav_writer.cpp.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\APECxx.dir\build.make CMakeFiles/APECxx.dir/src/wav_writer.cpp.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\APECxx_Run.dir\build.make CMakeFiles/APECxx_Run.dir/src/wav_writer.cpp.obj
 .PHONY : src/wav_writer.cpp.obj
 
 src/wav_writer.i: src/wav_writer.cpp.i
@@ -341,6 +364,7 @@ src/wav_writer.i: src/wav_writer.cpp.i
 # target to preprocess a source file
 src/wav_writer.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\APECxx.dir\build.make CMakeFiles/APECxx.dir/src/wav_writer.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\APECxx_Run.dir\build.make CMakeFiles/APECxx_Run.dir/src/wav_writer.cpp.i
 .PHONY : src/wav_writer.cpp.i
 
 src/wav_writer.s: src/wav_writer.cpp.s
@@ -349,6 +373,7 @@ src/wav_writer.s: src/wav_writer.cpp.s
 # target to generate assembly for a file
 src/wav_writer.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\APECxx.dir\build.make CMakeFiles/APECxx.dir/src/wav_writer.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\APECxx_Run.dir\build.make CMakeFiles/APECxx_Run.dir/src/wav_writer.cpp.s
 .PHONY : src/wav_writer.cpp.s
 
 # Help Target
@@ -366,6 +391,7 @@ help:
 	@echo ... rebuild_cache
 	@echo ... test
 	@echo ... APECxx
+	@echo ... APECxx_Run
 	@echo ... Tests
 	@echo ... gmock
 	@echo ... gmock_main
