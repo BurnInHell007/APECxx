@@ -1,4 +1,4 @@
-#include "audio_buffer.hpp"
+#include "AudioBuffer.hpp"
 #include "project.h"
 #include <gtest/gtest.h>
 

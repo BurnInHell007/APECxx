@@ -5,14 +5,11 @@
 
 namespace WavTools
 {
-    /// @brief Writer Class to write down a wav file
+    /// @brief Writer class to write down a wav filre
     class Writer
     {
     public:
-        Writer(uint32_t sample_rate, uint16_t num_channels, uint16_t bits_per_sample);
-
-        // template <typename SampleType>
-        // void write(const AudioBuffer<SampleType> &buffer);
+        Writer (uint32_t sample_rate, uint16_t num_channels, uint16_t bits_per_sample);
 
         /// @brief Copies metadata from buffer and save it to given path
         /// @param filepath file location
@@ -28,4 +25,5 @@ namespace WavTools
         uint16_t bits_per_sample_;
     };
 };
+
 #endif

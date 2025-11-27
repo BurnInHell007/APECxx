@@ -2,7 +2,7 @@
 #define GAIN_EFFECT_HPP_
 /// GAIN_EFFECT INHERITING AUDIO_EFFECT
 #include "project.h"
-#include "effects/audio_effect.hpp"
+#include "Effects/AudioEffect.hpp"
 
 template <typename SampleType>
 class GainEffect : public AudioEffect<SampleType>

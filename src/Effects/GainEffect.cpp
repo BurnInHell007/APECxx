@@ -1,5 +1,5 @@
 /// GainEffect Implementation
-#include "effects/gain_effect.hpp"
+#include "Effects/GainEffect.hpp"
 
 template <typename SampleType>
 GainEffect<SampleType>::GainEffect(float gain)

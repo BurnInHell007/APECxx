@@ -1,6 +1,6 @@
 #include "project.h"
-#include "wav_io/wav_reader.hpp"
-#include "wav_io/wav_writer.hpp"
+#include "WavIO/WavReader.hpp"
+#include "WavIO/WavWriter.hpp"
 
 int main(int argc, char **argv)
 {
@@ -14,7 +14,7 @@ int main(int argc, char **argv)
     try
     {
         // Read Input file
-        WavReader reader(argv[1]);
+        WavTools::Reader reader(argv[1]);
 
         std::cout << "Input file info:\n"
                   << "\tSample rate: " << reader.sample_rate() << " Hz\n"
@@ -26,9 +26,9 @@ int main(int argc, char **argv)
         auto buffer = reader.read<float>();
 
         // Write output file
-        WavWriter writer(argv[2], reader.sample_rate(), reader.num_channels(), reader.bits_per_sample());
+        WavTools::Writer writer(reader.sample_rate(), reader.num_channels(), reader.bits_per_sample());
 
-        writer.write(buffer);
+        writer.save(argv[2], buffer);
 
         std::cout << "Successfully wrote " << argv[2] << "\n";
     }

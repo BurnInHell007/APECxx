@@ -1,55 +1,10 @@
 #include "AudioBuffer.hpp"
 #include "WavIO/WavReader.hpp"
-
-namespace WReader
-{
-    template <typename T>
-    T convert_sample(int16_t sample)
-    {
-        return sample;
-    }
-
-    template <>
-    float convert_sample<float>(int16_t sample)
-    {
-        return static_cast<float>(sample) / 32768.0f;
-    }
-
-    template <>
-    int8_t convert_sample<int8_t>(int16_t sample)
-    {
-        return static_cast<int8_t>(sample / 256);
-    }
-
-    template <typename T>
-    T convert_sample(float sample)
-    {
-        return sample;
-    }
-
-    template <>
-    int16_t convert_sample<int16_t>(float sample)
-    {
-        return static_cast<int16_t>(sample * 32768);
-    }
-
-    template <>
-    int8_t convert_sample<int8_t>(float sample)
-    {
-        return static_cast<int8_t>(sample * 256);
-    }
-
-    template <typename T>
-    T convert_sample(int8_t sample)
-    {
-        return sample;
-    }
-
-}
+#include "WavIO/WavWriter.hpp"
 
 /// @brief Creates a WAV Reader instance that can read any WAV file
 /// @param filename
-WavReader::WavReader(const std::string &filename)
+WavTools::Reader::Reader(const std::string &filename)
     : file_(std::fopen(filename.c_str(), "rb"), &std::fclose)
 {
     if (!file_)
@@ -59,7 +14,7 @@ WavReader::WavReader(const std::string &filename)
     read_header();
 }
 
-void WavReader::read_header()
+void WavTools::Reader::read_header()
 {
     size_t WORD_BLOCK = 4; // to consider next 4 values as char
     auto read_chunk_id = [this, WORD_BLOCK](const char *expected)
@@ -138,7 +93,7 @@ void WavReader::read_header()
 /// @tparam SampleType
 /// @return AudioBuffer with values
 template <typename SampleType>
-AudioBuffer<SampleType> WavReader::read()
+AudioBuffer<SampleType> WavTools::Reader::read()
 {
     std::fseek(file_.get(), data_start_pos_, SEEK_SET);
 
@@ -151,7 +106,7 @@ AudioBuffer<SampleType> WavReader::read()
 
         for (size_t i = 0; i < temp.size(); i++)
         {
-            buffer.data()[i] = WReader::convert_sample<SampleType>(temp[i]);
+            buffer.data()[i] = WavTools::convert_sample<SampleType>(temp[i]);
         }
     }
     else if (bits_per_sample_ == 16)
@@ -161,7 +116,7 @@ AudioBuffer<SampleType> WavReader::read()
 
         for (size_t i = 0; i < temp.size(); i++)
         {
-            buffer.data()[i] = WReader::convert_sample<SampleType>(temp[i]);
+            buffer.data()[i] = WavTools::convert_sample<SampleType>(temp[i]);
         }
     }
     else if (bits_per_sample_ == 8)
@@ -171,7 +126,7 @@ AudioBuffer<SampleType> WavReader::read()
 
         for (size_t i = 0; i < temp.size(); i++)
         {
-            buffer.data()[i] = WReader::convert_sample<SampleType>(temp[i]);
+            buffer.data()[i] = WavTools::convert_sample<SampleType>(temp[i]);
         }
     }
 
@@ -179,6 +134,6 @@ AudioBuffer<SampleType> WavReader::read()
 }
 
 /// @brief Explicit template defination
-template AudioBuffer<float> WavReader::read<float>();
-template AudioBuffer<int16_t> WavReader::read<int16_t>();
-template AudioBuffer<int8_t> WavReader::read<int8_t>();
+template AudioBuffer<float> WavTools::Reader::read<float>();
+template AudioBuffer<int16_t> WavTools::Reader::read<int16_t>();
+template AudioBuffer<int8_t> WavTools::Reader::read<int8_t>();

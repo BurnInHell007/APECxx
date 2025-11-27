@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 4.2.0)
+cmake_minimum_required(VERSION 4.0.0)
 
 set(This APECxx)
 
@@ -19,9 +19,9 @@ set(Headers
 # file(GLOB Sources "src/*.cpp")
 set(Sources 
     "src/main.cpp"
-    "src/audio_buffer.cpp"
-    "src/wav_reader.cpp"
-    "src/wav_writer.cpp"
+    "src/AudioBuffer.cpp"
+    "src/WavIO/WavReader.cpp"
+    "src/WavIO/WavWriter.cpp"
 )
 
 add_library(${This} ${Sources} ${Header})

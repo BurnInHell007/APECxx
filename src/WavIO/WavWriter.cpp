@@ -1,20 +1,17 @@
 #include "AudioBuffer.hpp"
+#include "WavIO/WavReader.hpp"
 #include "WavIO/WavWriter.hpp"
 
-
-/// @brief Writer Instance to create new wav file with given metadata
-/// @param filename
+/// @brief Wav writer instance for creating wav copies
 /// @param sample_rate
 /// @param num_channels
 /// @param bits_per_sample
 WavTools::Writer::Writer(uint32_t sample_rate, uint16_t num_channels, uint16_t bits_per_sample)
-    : sample_rate_(sample_rate)
-    , num_channels_(num_channels)
-    , bits_per_sample_(bits_per_sample)
+    : sample_rate_(sample_rate), num_channels_(num_channels), bits_per_sample_(bits_per_sample)
 {
 }
 
-void WavTools::Writer::write_header(std::FILE* file_, uint32_t data_size)
+void WavTools::Writer::write_header(std::FILE *file_, uint32_t data_size)
 {
     size_t INT_BLOCK = 1;
     auto write_u16 = [this, file_, INT_BLOCK](uint16_t value)
@@ -61,13 +58,13 @@ void WavTools::Writer::write_header(std::FILE* file_, uint32_t data_size)
 /// @param filepath file location
 /// @param buffer modified buffer
 template <typename SampleType>
-void WavTools::Writer::save(const std::string& filepath, const AudioBuffer<SampleType>& buffer)
+void WavTools::Writer::save(const std::string &filepath, const AudioBuffer<SampleType> &buffer)
 {
     uint32_t data_size = buffer.num_samples() * buffer.num_samples() * bits_per_sample_;
 
     std::unique_ptr<std::FILE, decltype(&std::fclose)> file_(std::fopen(filepath.c_str(), "wb"), &std::fclose);
 
-    if(!file_)
+    if (!file_)
     {
         throw std::runtime_error("Cannot create file : " + filepath);
     }
@@ -110,8 +107,8 @@ void WavTools::Writer::save(const std::string& filepath, const AudioBuffer<Sampl
 }
 
 /// @brief Explicit template definition
-template void WavTools::Writer::save<float>(const std::string &,const AudioBuffer<float> &);
+template void WavTools::Writer::save<float>(const std::string &, const AudioBuffer<float> &);
 
-template void WavTools::Writer::save<int16_t>(const std::string& ,const AudioBuffer<int16_t> &);
+template void WavTools::Writer::save<int16_t>(const std::string &, const AudioBuffer<int16_t> &);
 
-template void WavTools::Writer::save<int8_t>(const std::string& ,const AudioBuffer<int8_t> &);
+template void WavTools::Writer::save<int8_t>(const std::string &, const AudioBuffer<int8_t> &);

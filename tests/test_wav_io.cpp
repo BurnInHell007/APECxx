@@ -1,6 +1,7 @@
 #include "project.h"
-#include "wav_io/wav_reader.hpp"
-#include "wav_io/wav_writer.hpp"
+#include "WavIO/WavCommon.hpp"
+#include "WavIO/WavReader.hpp"
+#include "WavIO/WavWriter.hpp"
 #include <gtest/gtest.h>
 
 bool checkFileExists(const std::string& inputPath)
@@ -15,8 +16,8 @@ TEST(WavIOTest, ReadWavFile)
     const std::string inputPath = "../../wav-files/sample-1.0.wav";
     
     // Act
-    WavReader reader(inputPath);
-    
+    WavTools::Reader reader(inputPath);
+
     // Assert
     ASSERT_EQ(reader.sample_rate(), 44100);
     ASSERT_EQ(reader.num_channels(), 2);
@@ -39,10 +40,10 @@ TEST(WavIOTest, WriteWavFile)
     const std::string outputPath = "../../wav-files/output.wav";
     
     // Act
-    WavReader reader(inputPath);
-    WavWriter writer(outputPath, reader.sample_rate(), reader.num_channels(), reader.bits_per_sample());
-    writer.write(reader.read<float>());
-    
+    WavTools::Reader reader(inputPath);
+    WavTools::Writer writer(reader.sample_rate(), reader.num_channels(), reader.bits_per_sample());
+    writer.save(outputPath, reader.read<float>());
+
     // Assert
     ASSERT_TRUE(checkFileExists(outputPath));
 }

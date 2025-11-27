@@ -2,7 +2,7 @@
 #define AUDIO_EFFECT_HPP_
 /// AUDIO EFFECT INTERFACE
 #include "project.h"
-#include "audio_buffer.hpp"
+#include "AudioBuffer.hpp"
 
 template <typename SampleType>
 class AudioEffect 

@@ -268,32 +268,86 @@ Tests/fast:
 	$(MAKE) $(MAKESILENT) -f tests\CMakeFiles\Tests.dir\build.make tests/CMakeFiles/Tests.dir/build
 .PHONY : Tests/fast
 
-src/audio_buffer.obj: src/audio_buffer.cpp.obj
-.PHONY : src/audio_buffer.obj
+src/AudioBuffer.obj: src/AudioBuffer.cpp.obj
+.PHONY : src/AudioBuffer.obj
 
 # target to build an object file
-src/audio_buffer.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\APECxx.dir\build.make CMakeFiles/APECxx.dir/src/audio_buffer.cpp.obj
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\APECxx_Run.dir\build.make CMakeFiles/APECxx_Run.dir/src/audio_buffer.cpp.obj
-.PHONY : src/audio_buffer.cpp.obj
+src/AudioBuffer.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\APECxx.dir\build.make CMakeFiles/APECxx.dir/src/AudioBuffer.cpp.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\APECxx_Run.dir\build.make CMakeFiles/APECxx_Run.dir/src/AudioBuffer.cpp.obj
+.PHONY : src/AudioBuffer.cpp.obj
 
-src/audio_buffer.i: src/audio_buffer.cpp.i
-.PHONY : src/audio_buffer.i
+src/AudioBuffer.i: src/AudioBuffer.cpp.i
+.PHONY : src/AudioBuffer.i
 
 # target to preprocess a source file
-src/audio_buffer.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\APECxx.dir\build.make CMakeFiles/APECxx.dir/src/audio_buffer.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\APECxx_Run.dir\build.make CMakeFiles/APECxx_Run.dir/src/audio_buffer.cpp.i
-.PHONY : src/audio_buffer.cpp.i
+src/AudioBuffer.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\APECxx.dir\build.make CMakeFiles/APECxx.dir/src/AudioBuffer.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\APECxx_Run.dir\build.make CMakeFiles/APECxx_Run.dir/src/AudioBuffer.cpp.i
+.PHONY : src/AudioBuffer.cpp.i
 
-src/audio_buffer.s: src/audio_buffer.cpp.s
-.PHONY : src/audio_buffer.s
+src/AudioBuffer.s: src/AudioBuffer.cpp.s
+.PHONY : src/AudioBuffer.s
 
 # target to generate assembly for a file
-src/audio_buffer.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\APECxx.dir\build.make CMakeFiles/APECxx.dir/src/audio_buffer.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\APECxx_Run.dir\build.make CMakeFiles/APECxx_Run.dir/src/audio_buffer.cpp.s
-.PHONY : src/audio_buffer.cpp.s
+src/AudioBuffer.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\APECxx.dir\build.make CMakeFiles/APECxx.dir/src/AudioBuffer.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\APECxx_Run.dir\build.make CMakeFiles/APECxx_Run.dir/src/AudioBuffer.cpp.s
+.PHONY : src/AudioBuffer.cpp.s
+
+src/WavIO/WavReader.obj: src/WavIO/WavReader.cpp.obj
+.PHONY : src/WavIO/WavReader.obj
+
+# target to build an object file
+src/WavIO/WavReader.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\APECxx.dir\build.make CMakeFiles/APECxx.dir/src/WavIO/WavReader.cpp.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\APECxx_Run.dir\build.make CMakeFiles/APECxx_Run.dir/src/WavIO/WavReader.cpp.obj
+.PHONY : src/WavIO/WavReader.cpp.obj
+
+src/WavIO/WavReader.i: src/WavIO/WavReader.cpp.i
+.PHONY : src/WavIO/WavReader.i
+
+# target to preprocess a source file
+src/WavIO/WavReader.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\APECxx.dir\build.make CMakeFiles/APECxx.dir/src/WavIO/WavReader.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\APECxx_Run.dir\build.make CMakeFiles/APECxx_Run.dir/src/WavIO/WavReader.cpp.i
+.PHONY : src/WavIO/WavReader.cpp.i
+
+src/WavIO/WavReader.s: src/WavIO/WavReader.cpp.s
+.PHONY : src/WavIO/WavReader.s
+
+# target to generate assembly for a file
+src/WavIO/WavReader.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\APECxx.dir\build.make CMakeFiles/APECxx.dir/src/WavIO/WavReader.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\APECxx_Run.dir\build.make CMakeFiles/APECxx_Run.dir/src/WavIO/WavReader.cpp.s
+.PHONY : src/WavIO/WavReader.cpp.s
+
+src/WavIO/WavWriter.obj: src/WavIO/WavWriter.cpp.obj
+.PHONY : src/WavIO/WavWriter.obj
+
+# target to build an object file
+src/WavIO/WavWriter.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\APECxx.dir\build.make CMakeFiles/APECxx.dir/src/WavIO/WavWriter.cpp.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\APECxx_Run.dir\build.make CMakeFiles/APECxx_Run.dir/src/WavIO/WavWriter.cpp.obj
+.PHONY : src/WavIO/WavWriter.cpp.obj
+
+src/WavIO/WavWriter.i: src/WavIO/WavWriter.cpp.i
+.PHONY : src/WavIO/WavWriter.i
+
+# target to preprocess a source file
+src/WavIO/WavWriter.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\APECxx.dir\build.make CMakeFiles/APECxx.dir/src/WavIO/WavWriter.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\APECxx_Run.dir\build.make CMakeFiles/APECxx_Run.dir/src/WavIO/WavWriter.cpp.i
+.PHONY : src/WavIO/WavWriter.cpp.i
+
+src/WavIO/WavWriter.s: src/WavIO/WavWriter.cpp.s
+.PHONY : src/WavIO/WavWriter.s
+
+# target to generate assembly for a file
+src/WavIO/WavWriter.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\APECxx.dir\build.make CMakeFiles/APECxx.dir/src/WavIO/WavWriter.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\APECxx_Run.dir\build.make CMakeFiles/APECxx_Run.dir/src/WavIO/WavWriter.cpp.s
+.PHONY : src/WavIO/WavWriter.cpp.s
 
 src/main.obj: src/main.cpp.obj
 .PHONY : src/main.obj
@@ -322,60 +376,6 @@ src/main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\APECxx_Run.dir\build.make CMakeFiles/APECxx_Run.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
-src/wav_reader.obj: src/wav_reader.cpp.obj
-.PHONY : src/wav_reader.obj
-
-# target to build an object file
-src/wav_reader.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\APECxx.dir\build.make CMakeFiles/APECxx.dir/src/wav_reader.cpp.obj
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\APECxx_Run.dir\build.make CMakeFiles/APECxx_Run.dir/src/wav_reader.cpp.obj
-.PHONY : src/wav_reader.cpp.obj
-
-src/wav_reader.i: src/wav_reader.cpp.i
-.PHONY : src/wav_reader.i
-
-# target to preprocess a source file
-src/wav_reader.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\APECxx.dir\build.make CMakeFiles/APECxx.dir/src/wav_reader.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\APECxx_Run.dir\build.make CMakeFiles/APECxx_Run.dir/src/wav_reader.cpp.i
-.PHONY : src/wav_reader.cpp.i
-
-src/wav_reader.s: src/wav_reader.cpp.s
-.PHONY : src/wav_reader.s
-
-# target to generate assembly for a file
-src/wav_reader.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\APECxx.dir\build.make CMakeFiles/APECxx.dir/src/wav_reader.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\APECxx_Run.dir\build.make CMakeFiles/APECxx_Run.dir/src/wav_reader.cpp.s
-.PHONY : src/wav_reader.cpp.s
-
-src/wav_writer.obj: src/wav_writer.cpp.obj
-.PHONY : src/wav_writer.obj
-
-# target to build an object file
-src/wav_writer.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\APECxx.dir\build.make CMakeFiles/APECxx.dir/src/wav_writer.cpp.obj
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\APECxx_Run.dir\build.make CMakeFiles/APECxx_Run.dir/src/wav_writer.cpp.obj
-.PHONY : src/wav_writer.cpp.obj
-
-src/wav_writer.i: src/wav_writer.cpp.i
-.PHONY : src/wav_writer.i
-
-# target to preprocess a source file
-src/wav_writer.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\APECxx.dir\build.make CMakeFiles/APECxx.dir/src/wav_writer.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\APECxx_Run.dir\build.make CMakeFiles/APECxx_Run.dir/src/wav_writer.cpp.i
-.PHONY : src/wav_writer.cpp.i
-
-src/wav_writer.s: src/wav_writer.cpp.s
-.PHONY : src/wav_writer.s
-
-# target to generate assembly for a file
-src/wav_writer.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\APECxx.dir\build.make CMakeFiles/APECxx.dir/src/wav_writer.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\APECxx_Run.dir\build.make CMakeFiles/APECxx_Run.dir/src/wav_writer.cpp.s
-.PHONY : src/wav_writer.cpp.s
-
 # Help Target
 help:
 	@echo The following are some of the valid targets for this Makefile:
@@ -397,18 +397,18 @@ help:
 	@echo ... gmock_main
 	@echo ... gtest
 	@echo ... gtest_main
-	@echo ... src/audio_buffer.obj
-	@echo ... src/audio_buffer.i
-	@echo ... src/audio_buffer.s
+	@echo ... src/AudioBuffer.obj
+	@echo ... src/AudioBuffer.i
+	@echo ... src/AudioBuffer.s
+	@echo ... src/WavIO/WavReader.obj
+	@echo ... src/WavIO/WavReader.i
+	@echo ... src/WavIO/WavReader.s
+	@echo ... src/WavIO/WavWriter.obj
+	@echo ... src/WavIO/WavWriter.i
+	@echo ... src/WavIO/WavWriter.s
 	@echo ... src/main.obj
 	@echo ... src/main.i
 	@echo ... src/main.s
-	@echo ... src/wav_reader.obj
-	@echo ... src/wav_reader.i
-	@echo ... src/wav_reader.s
-	@echo ... src/wav_writer.obj
-	@echo ... src/wav_writer.i
-	@echo ... src/wav_writer.s
 .PHONY : help
 
 
