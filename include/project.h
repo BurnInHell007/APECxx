@@ -16,4 +16,6 @@
 #include <fstream>
 
 #include <iostream>
+/// For effects
+#include <algorithm>
 #endif //AUDIO_ENGINE_HEADER_

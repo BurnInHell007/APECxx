@@ -1,0 +1,22 @@
+/// GainEffect Implementation
+#include "effects/gain_effect.hpp"
+
+template <typename SampleType>
+GainEffect<SampleType>::GainEffect(float gain)
+    : gainFactor_(gain) {}
+
+template <typename SampleType>
+void GainEffect<SampleType>::process(AudioBuffer<SampleType> &buffer) 
+{
+    // alternative L and R values
+    for (size_t channel = 0; channel < buffer.num_channels(); channel++)
+    {
+        for (size_t sample = 0; sample < buffer.num_samples(); sample++)
+        {
+            // channel + 2 * samples to get the left first then the right
+            buffer.data()[channel + 2 * sample] = buffer.data()[channel + 2 * sample];
+            // TODO: gain factor
+        }
+    }
+    std::cout << "Hello from GainEffect process function \n";
+}

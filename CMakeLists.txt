@@ -13,10 +13,7 @@ enable_testing()
 add_subdirectory(googletest)
 
 set(Headers 
-    "include/audio_buffer.hpp"
-    "include/wav_reader.hpp"
-    "include/wav_writer.hpp"
-    "include/project.h"
+    "include/*"
 )
 
 # file(GLOB Sources "src/*.cpp")
