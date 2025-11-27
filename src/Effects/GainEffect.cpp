@@ -14,9 +14,13 @@ void GainEffect<SampleType>::process(AudioBuffer<SampleType> &buffer)
         for (size_t sample = 0; sample < buffer.num_samples(); sample++)
         {
             // channel + 2 * samples to get the left first then the right
-            buffer.data()[channel + 2 * sample] = buffer.data()[channel + 2 * sample];
+            buffer.data()[channel + 2 * sample] = (channel ? 2 : 1) * buffer.data()[channel + 2 * sample];
             // TODO: gain factor
         }
     }
     std::cout << "Hello from GainEffect process function \n";
 }
+
+template class GainEffect<float>;
+template class GainEffect<int16_t>;
+template class GainEffect<int8_t>;

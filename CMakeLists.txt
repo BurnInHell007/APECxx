@@ -22,6 +22,7 @@ set(Sources
     "src/AudioBuffer.cpp"
     "src/WavIO/WavReader.cpp"
     "src/WavIO/WavWriter.cpp"
+    "src/Effects/GainEffect.cpp"
 )
 
 add_library(${This} ${Sources} ${Header})

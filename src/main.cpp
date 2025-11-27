@@ -1,6 +1,7 @@
 #include "project.h"
 #include "WavIO/WavReader.hpp"
 #include "WavIO/WavWriter.hpp"
+#include "Effects/GainEffect.hpp"
 
 int main(int argc, char **argv)
 {
@@ -31,6 +32,13 @@ int main(int argc, char **argv)
         writer.save(argv[2], buffer);
 
         std::cout << "Successfully wrote " << argv[2] << "\n";
+
+        GainEffect<float> gaineffect(2.0f);
+        gaineffect.process(buffer);
+
+        writer.save("../wav-files/gaineffect.wav", buffer);
+
+        std::cout << "Sucessfully wrote Gain Effect filter\n";
     }
     catch (const std::exception &e)
     {

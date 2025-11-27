@@ -295,6 +295,33 @@ src/AudioBuffer.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\APECxx_Run.dir\build.make CMakeFiles/APECxx_Run.dir/src/AudioBuffer.cpp.s
 .PHONY : src/AudioBuffer.cpp.s
 
+src/Effects/GainEffect.obj: src/Effects/GainEffect.cpp.obj
+.PHONY : src/Effects/GainEffect.obj
+
+# target to build an object file
+src/Effects/GainEffect.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\APECxx.dir\build.make CMakeFiles/APECxx.dir/src/Effects/GainEffect.cpp.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\APECxx_Run.dir\build.make CMakeFiles/APECxx_Run.dir/src/Effects/GainEffect.cpp.obj
+.PHONY : src/Effects/GainEffect.cpp.obj
+
+src/Effects/GainEffect.i: src/Effects/GainEffect.cpp.i
+.PHONY : src/Effects/GainEffect.i
+
+# target to preprocess a source file
+src/Effects/GainEffect.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\APECxx.dir\build.make CMakeFiles/APECxx.dir/src/Effects/GainEffect.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\APECxx_Run.dir\build.make CMakeFiles/APECxx_Run.dir/src/Effects/GainEffect.cpp.i
+.PHONY : src/Effects/GainEffect.cpp.i
+
+src/Effects/GainEffect.s: src/Effects/GainEffect.cpp.s
+.PHONY : src/Effects/GainEffect.s
+
+# target to generate assembly for a file
+src/Effects/GainEffect.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\APECxx.dir\build.make CMakeFiles/APECxx.dir/src/Effects/GainEffect.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\APECxx_Run.dir\build.make CMakeFiles/APECxx_Run.dir/src/Effects/GainEffect.cpp.s
+.PHONY : src/Effects/GainEffect.cpp.s
+
 src/WavIO/WavReader.obj: src/WavIO/WavReader.cpp.obj
 .PHONY : src/WavIO/WavReader.obj
 
@@ -400,6 +427,9 @@ help:
 	@echo ... src/AudioBuffer.obj
 	@echo ... src/AudioBuffer.i
 	@echo ... src/AudioBuffer.s
+	@echo ... src/Effects/GainEffect.obj
+	@echo ... src/Effects/GainEffect.i
+	@echo ... src/Effects/GainEffect.s
 	@echo ... src/WavIO/WavReader.obj
 	@echo ... src/WavIO/WavReader.i
 	@echo ... src/WavIO/WavReader.s

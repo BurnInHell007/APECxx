@@ -8,7 +8,7 @@ template <typename SampleType>
 class AudioEffect 
 {
 public:
-    AudioEffect();
+    AudioEffect() {}
     ~AudioEffect() = default;
 
     virtual void process(AudioBuffer<SampleType> &buffer) = 0;
