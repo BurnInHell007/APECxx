@@ -27,3 +27,13 @@ The project follows a separation-of-concerns architecture, keeping interface hea
 ├───tests             # Google Test unit test suite
 └───wav-file          # Sample assets for testing
 ```
+
+## 🎧 Audio Showcase : Before & After
+
+The Input and output files after each phase and effects
+
+| Experiement | Description | Input Audio | Output Audio |
+|:-----------:|:-----------:|:-----------:|:------------:|
+| Pipeline Testing | Loss less Read/Write | ▶️[Input.wav](./wav-files/sample-1.0.wav) | ▶️[Output.wav](./wav-files/output.wav) |
+| Pipeline Testing | Loss less Read/Write | ▶️[Input.wav](./wav-files/sample-1.0.wav) | ▶️[Output.wav](./wav-files/output.wav) |
+| Pipeline Testing | Loss less Read/Write | ▶️[Input.wav](./wav-files/sample-1.0.wav) | ▶️[Output.wav](./wav-files/output.wav) |
