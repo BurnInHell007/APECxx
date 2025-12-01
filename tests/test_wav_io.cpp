@@ -1,5 +1,4 @@
 #include "project.h"
-#include "WavIO/WavCommon.hpp"
 #include "WavIO/WavReader.hpp"
 #include "WavIO/WavWriter.hpp"
 #include <gtest/gtest.h>
@@ -13,7 +12,7 @@ bool checkFileExists(const std::string& inputPath)
 TEST(WavIOTest, ReadWavFile)
 {
     // Arrange 
-    const std::string inputPath = "../../wav-files/sample-1.0.wav";
+    const std::string inputPath = "../../wav-files/stereo_1mb.wav";
     
     // Act
     WavTools::Reader reader(inputPath);
@@ -36,7 +35,7 @@ TEST(WavIOTest, ReadWavFile)
 TEST(WavIOTest, WriteWavFile)
 {
     // Arrange
-    const std::string inputPath = "../../wav-files/sample-1.0.wav";
+    const std::string inputPath = "../../wav-files/stereo_1mb.wav";
     const std::string outputPath = "../../wav-files/output.wav";
     
     // Act

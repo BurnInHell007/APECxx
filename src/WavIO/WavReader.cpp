@@ -1,6 +1,5 @@
 #include "AudioBuffer.hpp"
 #include "WavIO/WavReader.hpp"
-#include "WavIO/WavWriter.hpp"
 
 /// @brief Creates a WAV Reader instance that can read any WAV file
 /// @param filename

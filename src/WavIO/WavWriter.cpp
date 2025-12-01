@@ -1,5 +1,4 @@
 #include "AudioBuffer.hpp"
-#include "WavIO/WavReader.hpp"
 #include "WavIO/WavWriter.hpp"
 
 /// @brief Wav writer instance for creating wav copies

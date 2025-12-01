@@ -1,7 +1,8 @@
-#ifndef WAV_READER_HPP_
+#ifndef WAV_READER_HPP_ 
 #define WAV_READER_HPP_
 /// WAV READER HEADER FILE
 #include "AudioBuffer.hpp"
+#include "WavIO/WavCommon.hpp"
 
 namespace WavTools
 {
