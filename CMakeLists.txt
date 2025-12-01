@@ -23,6 +23,7 @@ set(Sources
     "src/WavIO/WavReader.cpp"
     "src/WavIO/WavWriter.cpp"
     "src/Effects/GainEffect.cpp"
+    "src/Effects/FadeEffect.cpp"
 )
 
 add_library(${This} ${Sources} ${Header})

@@ -295,6 +295,33 @@ src/AudioBuffer.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\APECxx_Run.dir\build.make CMakeFiles/APECxx_Run.dir/src/AudioBuffer.cpp.s
 .PHONY : src/AudioBuffer.cpp.s
 
+src/Effects/FadeEffect.obj: src/Effects/FadeEffect.cpp.obj
+.PHONY : src/Effects/FadeEffect.obj
+
+# target to build an object file
+src/Effects/FadeEffect.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\APECxx.dir\build.make CMakeFiles/APECxx.dir/src/Effects/FadeEffect.cpp.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\APECxx_Run.dir\build.make CMakeFiles/APECxx_Run.dir/src/Effects/FadeEffect.cpp.obj
+.PHONY : src/Effects/FadeEffect.cpp.obj
+
+src/Effects/FadeEffect.i: src/Effects/FadeEffect.cpp.i
+.PHONY : src/Effects/FadeEffect.i
+
+# target to preprocess a source file
+src/Effects/FadeEffect.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\APECxx.dir\build.make CMakeFiles/APECxx.dir/src/Effects/FadeEffect.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\APECxx_Run.dir\build.make CMakeFiles/APECxx_Run.dir/src/Effects/FadeEffect.cpp.i
+.PHONY : src/Effects/FadeEffect.cpp.i
+
+src/Effects/FadeEffect.s: src/Effects/FadeEffect.cpp.s
+.PHONY : src/Effects/FadeEffect.s
+
+# target to generate assembly for a file
+src/Effects/FadeEffect.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\APECxx.dir\build.make CMakeFiles/APECxx.dir/src/Effects/FadeEffect.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\APECxx_Run.dir\build.make CMakeFiles/APECxx_Run.dir/src/Effects/FadeEffect.cpp.s
+.PHONY : src/Effects/FadeEffect.cpp.s
+
 src/Effects/GainEffect.obj: src/Effects/GainEffect.cpp.obj
 .PHONY : src/Effects/GainEffect.obj
 
@@ -427,6 +454,9 @@ help:
 	@echo ... src/AudioBuffer.obj
 	@echo ... src/AudioBuffer.i
 	@echo ... src/AudioBuffer.s
+	@echo ... src/Effects/FadeEffect.obj
+	@echo ... src/Effects/FadeEffect.i
+	@echo ... src/Effects/FadeEffect.s
 	@echo ... src/Effects/GainEffect.obj
 	@echo ... src/Effects/GainEffect.i
 	@echo ... src/Effects/GainEffect.s
