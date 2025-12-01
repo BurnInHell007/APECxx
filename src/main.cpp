@@ -2,6 +2,7 @@
 #include "WavIO/WavReader.hpp"
 #include "WavIO/WavWriter.hpp"
 #include "Effects/GainEffect.hpp"
+#include "Effects/FadeEffect.hpp"
 
 int main(int argc, char **argv)
 {
@@ -25,20 +26,46 @@ int main(int argc, char **argv)
 
         // Read audio data using float for processing precision
         auto buffer = reader.read<float>();
+        /**
+         * Can do something like
+         * AudioBuffer<float> buffer;
+         * { /// START BLOCK
+         *      WavTools::Reader reader(argv[1]);
+         *      buffer = reader.read<float>();
+         * } /// END BLOCK
+         * This will release the memory block which is created for reader
+         * Necessary when doing performance heavy works
+         */
 
         // Write output file
         WavTools::Writer writer(reader.sample_rate(), reader.num_channels(), reader.bits_per_sample());
 
+        /// To save file by default
         writer.save(argv[2], buffer);
 
         std::cout << "Successfully wrote " << argv[2] << "\n";
 
-        GainEffect<float> gaineffect(2.0f);
-        gaineffect.process(buffer);
+        /// Gain Effect test
+        // GainEffect<float> gainEffect(2.0f);
+        // gainEffect.process(buffer);
 
-        writer.save("../wav-files/gaineffect.wav", buffer);
+        // writer.save("../wav-files/gainEffect.wav", buffer);
 
-        std::cout << "Sucessfully wrote Gain Effect filter\n";
+        /// Fade Effect test
+        {
+            float FadeInStart = 1.0, FadeInEnd = 2.0;
+            size_t samples = buffer.num_samples() / 4;
+            FadeEffect<float> fadeIn(FadeInStart, FadeInEnd, samples);
+            fadeIn.process(buffer);
+            writer.save("../wav-files/fadeInEffect.wav", buffer);
+            
+            float FadeOutStart = 2.0, FadeOutEnd = 1.0;
+            FadeEffect<float> fadeOut(FadeOutStart, FadeOutEnd, samples);
+            fadeOut.process(buffer);
+            writer.save("../wav-files/fadeOutEffect.wav", buffer);
+        }
+            
+        std::cout << "Sucessfully wrote Effect filters\n";
     }
     catch (const std::exception &e)
     {
