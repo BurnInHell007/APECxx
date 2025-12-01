@@ -17,7 +17,6 @@ void GainEffect<SampleType>::process(AudioBuffer<SampleType> &buffer)
             buffer.data()[channel + 2 * sample] = gainFactor_ * buffer.data()[channel + 2 * sample];
         }
     }
-    std::cout << "Hello from GainEffect process function \n";
 }
 
 template class GainEffect<float>;
