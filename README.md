@@ -37,3 +37,17 @@ The Input and output files after each phase and effects
 | Pipeline Testing | Loss less Read/Write | ▶️[Input.wav](./wav-files/sample-1.0.wav) | ▶️[Output.wav](./wav-files/output.wav) |
 | Pipeline Testing | Loss less Read/Write | ▶️[Input.wav](./wav-files/sample-1.0.wav) | ▶️[Output.wav](./wav-files/output.wav) |
 | Pipeline Testing | Loss less Read/Write | ▶️[Input.wav](./wav-files/sample-1.0.wav) | ▶️[Output.wav](./wav-files/output.wav) |
+
+## Simple DSP (Digital Signal Processing) | Effects
+
+### Gain Effect (Volume Control)
+
+$y[n] = x[n]*A$
+
+Decible(db) to linear gain conversion
+Formula is:
+$A = 10^(db/20)$
+
+-  0 db -> Gain = 1.0 (No change)
+- -6 db -> Gain = 0.5 (half amp)
+- +6 db -> Gain = 2.0 (double amp)
