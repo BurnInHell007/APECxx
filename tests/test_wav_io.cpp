@@ -12,16 +12,16 @@ bool checkFileExists(const std::string& inputPath)
 TEST(WavIOTest, ReadWavFile)
 {
     // Arrange 
-    const std::string inputPath = "../../wav-files/stereo_1mb.wav";
+    const std::string inputPath = "../../wav-files/mono_8bits.wav";
     
     // Act
     WavTools::Reader reader(inputPath);
 
     // Assert
-    ASSERT_EQ(reader.sample_rate(), 44100);
-    ASSERT_EQ(reader.num_channels(), 2);
-    ASSERT_EQ(reader.bits_per_sample(), 16);
-    ASSERT_GT(static_cast<float>(reader.num_samples() / (float)reader.sample_rate()), 5);
+    ASSERT_EQ(reader.sample_rate(), 8000);
+    ASSERT_EQ(reader.num_channels(), 1);
+    ASSERT_EQ(reader.bits_per_sample(), 8);
+    ASSERT_GT(static_cast<float>(reader.num_samples() / (float)reader.sample_rate()), 8);
     /**
         Input file info:
        	Sample rate: 44100 Hz
@@ -35,7 +35,7 @@ TEST(WavIOTest, ReadWavFile)
 TEST(WavIOTest, WriteWavFile)
 {
     // Arrange
-    const std::string inputPath = "../../wav-files/stereo_1mb.wav";
+    const std::string inputPath = "../../wav-files/mono_8bits.wav";
     const std::string outputPath = "../../wav-files/output.wav";
     
     // Act
