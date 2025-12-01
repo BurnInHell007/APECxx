@@ -13,6 +13,8 @@ FadeEffect<SampleType>::FadeEffect(float start, float end, size_t samples)
     , no_of_samples(samples)
 {}
 
+/// TODO:
+/// FIXME: Effects are only applied to the begining of the audio Buffer
 /// @brief FadeIn or FadeOut Effect | s=0,e=1 (FadeIn) | s=1,e=0 (FadeOut)
 template <typename SampleType>
 void FadeEffect<SampleType>::process(AudioBuffer<SampleType> &buffer)
