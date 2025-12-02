@@ -21,15 +21,7 @@ TEST(WavIOTest, ReadWavFile)
     ASSERT_EQ(reader.sample_rate(), 8000);
     ASSERT_EQ(reader.num_channels(), 1);
     ASSERT_EQ(reader.bits_per_sample(), 8);
-    ASSERT_GT(static_cast<float>(reader.num_samples() / (float)reader.sample_rate()), 8);
-    /**
-        Input file info:
-       	Sample rate: 44100 Hz
-    	Channels: 2
-    	Bit depth: 16 bits
-    	Duration: 5.94317 seconds
-        Successfully wrote ..\wav-files\output.wav
-    **/
+    ASSERT_GE(static_cast<float>(reader.num_samples() / (float)reader.sample_rate()), 8);
 }
 
 TEST(WavIOTest, WriteWavFile)

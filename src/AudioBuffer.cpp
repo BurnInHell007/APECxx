@@ -41,4 +41,4 @@ void AudioBuffer<SampleType>::clear()
 /// @brief Explicit template calls to avoid undefined refrence
 template class AudioBuffer<float>;
 template class AudioBuffer<int16_t>;
-template class AudioBuffer<int8_t>;
+template class AudioBuffer<uint8_t>;

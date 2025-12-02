@@ -120,8 +120,8 @@ AudioBuffer<SampleType> WavTools::Reader::read()
     }
     else if (bits_per_sample_ == 8)
     {
-        std::vector<int8_t> temp(num_samples_ * num_channels_);
-        std::fread(temp.data(), sizeof(int8_t), temp.size(), file_.get());
+        std::vector<uint8_t> temp(num_samples_ * num_channels_);
+        std::fread(temp.data(), sizeof(uint8_t), temp.size(), file_.get());
 
         for (size_t i = 0; i < temp.size(); i++)
         {
@@ -135,4 +135,4 @@ AudioBuffer<SampleType> WavTools::Reader::read()
 /// @brief Explicit template defination
 template AudioBuffer<float> WavTools::Reader::read<float>();
 template AudioBuffer<int16_t> WavTools::Reader::read<int16_t>();
-template AudioBuffer<int8_t> WavTools::Reader::read<int8_t>();
+template AudioBuffer<uint8_t> WavTools::Reader::read<uint8_t>();

@@ -59,7 +59,7 @@ void WavTools::Writer::write_header(std::FILE *file_, uint32_t data_size)
 template <typename SampleType>
 void WavTools::Writer::save(const std::string &filepath, const AudioBuffer<SampleType> &buffer)
 {
-    uint32_t data_size = buffer.num_samples() * buffer.num_samples() * bits_per_sample_;
+    uint32_t data_size = buffer.num_samples() * buffer.num_channels() * bits_per_sample_;
 
     std::unique_ptr<std::FILE, decltype(&std::fclose)> file_(std::fopen(filepath.c_str(), "wb"), &std::fclose);
 
@@ -94,14 +94,14 @@ void WavTools::Writer::save(const std::string &filepath, const AudioBuffer<Sampl
     }
     else if (bits_per_sample_ == 8)
     {
-        std::vector<int8_t> temp(buffer.num_channels() * buffer.num_samples());
+        std::vector<uint8_t> temp(buffer.num_channels() * buffer.num_samples());
 
         for (size_t i = 0; i < temp.size(); i++)
         {
-            temp[i] = WavTools::convert_sample<int8_t>(buffer.data()[i]);
+            temp[i] = WavTools::convert_sample<uint8_t>(buffer.data()[i]);
         }
 
-        std::fwrite(temp.data(), sizeof(int8_t), temp.size(), file_.get());
+        std::fwrite(temp.data(), sizeof(uint8_t), temp.size(), file_.get());
     }
 }
 
@@ -110,4 +110,4 @@ template void WavTools::Writer::save<float>(const std::string &, const AudioBuff
 
 template void WavTools::Writer::save<int16_t>(const std::string &, const AudioBuffer<int16_t> &);
 
-template void WavTools::Writer::save<int8_t>(const std::string &, const AudioBuffer<int8_t> &);
+template void WavTools::Writer::save<uint8_t>(const std::string &, const AudioBuffer<uint8_t> &);
