@@ -10,6 +10,8 @@ WavTools::Writer::Writer(uint32_t sample_rate, uint16_t num_channels, uint16_t b
 {
 }
 
+/// @brief write header to file
+/// Did a dirty fix for stereo to mono buffer change 
 void WavTools::Writer::write_header(std::FILE *file_, uint32_t data_size)
 {
     size_t INT_BLOCK = 1;
