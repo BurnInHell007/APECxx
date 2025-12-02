@@ -349,6 +349,33 @@ src/Effects/GainEffect.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\APECxx_Run.dir\build.make CMakeFiles/APECxx_Run.dir/src/Effects/GainEffect.cpp.s
 .PHONY : src/Effects/GainEffect.cpp.s
 
+src/Effects/MixEffect.obj: src/Effects/MixEffect.cpp.obj
+.PHONY : src/Effects/MixEffect.obj
+
+# target to build an object file
+src/Effects/MixEffect.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\APECxx.dir\build.make CMakeFiles/APECxx.dir/src/Effects/MixEffect.cpp.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\APECxx_Run.dir\build.make CMakeFiles/APECxx_Run.dir/src/Effects/MixEffect.cpp.obj
+.PHONY : src/Effects/MixEffect.cpp.obj
+
+src/Effects/MixEffect.i: src/Effects/MixEffect.cpp.i
+.PHONY : src/Effects/MixEffect.i
+
+# target to preprocess a source file
+src/Effects/MixEffect.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\APECxx.dir\build.make CMakeFiles/APECxx.dir/src/Effects/MixEffect.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\APECxx_Run.dir\build.make CMakeFiles/APECxx_Run.dir/src/Effects/MixEffect.cpp.i
+.PHONY : src/Effects/MixEffect.cpp.i
+
+src/Effects/MixEffect.s: src/Effects/MixEffect.cpp.s
+.PHONY : src/Effects/MixEffect.s
+
+# target to generate assembly for a file
+src/Effects/MixEffect.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\APECxx.dir\build.make CMakeFiles/APECxx.dir/src/Effects/MixEffect.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\APECxx_Run.dir\build.make CMakeFiles/APECxx_Run.dir/src/Effects/MixEffect.cpp.s
+.PHONY : src/Effects/MixEffect.cpp.s
+
 src/WavIO/WavReader.obj: src/WavIO/WavReader.cpp.obj
 .PHONY : src/WavIO/WavReader.obj
 
@@ -460,6 +487,9 @@ help:
 	@echo ... src/Effects/GainEffect.obj
 	@echo ... src/Effects/GainEffect.i
 	@echo ... src/Effects/GainEffect.s
+	@echo ... src/Effects/MixEffect.obj
+	@echo ... src/Effects/MixEffect.i
+	@echo ... src/Effects/MixEffect.s
 	@echo ... src/WavIO/WavReader.obj
 	@echo ... src/WavIO/WavReader.i
 	@echo ... src/WavIO/WavReader.s

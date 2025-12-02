@@ -3,6 +3,7 @@
 #include "WavIO/WavWriter.hpp"
 #include "Effects/GainEffect.hpp"
 #include "Effects/FadeEffect.hpp"
+#include "Effects/MixEffect.hpp"
 
 int main(int argc, char **argv)
 {
@@ -53,18 +54,29 @@ int main(int argc, char **argv)
 
         /// Fade Effect test
         {
-            float FadeInStart = 1.0, FadeInEnd = 2.0;
+            float FadeInStart = 0.1, FadeInEnd = 1.0;
             size_t samples = buffer.num_samples() / 4;
             FadeEffect<float> fadeIn(FadeInStart, FadeInEnd, samples);
             fadeIn.process(buffer);
             writer.save("../wav-files/fadeInEffect.wav", buffer);
             
-            float FadeOutStart = 2.0, FadeOutEnd = 1.0;
+            float FadeOutStart = 1.0, FadeOutEnd = 0.5;
             FadeEffect<float> fadeOut(FadeOutStart, FadeOutEnd, samples);
             fadeOut.process(buffer);
             writer.save("../wav-files/fadeOutEffect.wav", buffer);
         }
-            
+
+        {
+            float panValue = 0.2f;
+            MixEffect<float> panMixEffect(true, panValue);
+            panMixEffect.process(buffer);
+            writer.save("../wav-files/panEffect.wav", buffer);
+
+            MixEffect<float> mixEffect;
+            mixEffect.process(buffer);
+            writer.save("../wav-files/mixEffect.wav", buffer);
+        }
+
         std::cout << "Sucessfully wrote Effect filters\n";
     }
     catch (const std::exception &e)

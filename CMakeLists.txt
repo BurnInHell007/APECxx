@@ -24,6 +24,7 @@ set(Sources
     "src/WavIO/WavWriter.cpp"
     "src/Effects/GainEffect.cpp"
     "src/Effects/FadeEffect.cpp"
+    "src/Effects/MixEffect.cpp"
 )
 
 add_library(${This} ${Sources} ${Header})
