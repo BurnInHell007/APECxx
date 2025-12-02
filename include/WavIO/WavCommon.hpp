@@ -20,9 +20,9 @@ namespace WavTools
     }
 
     template <>
-    inline int8_t convert_sample<int8_t>(int16_t sample)
+    inline uint8_t convert_sample<uint8_t>(int16_t sample)
     {
-        return static_cast<int8_t>(sample / 256);
+        return static_cast<uint8_t>(sample / 128);
     }
 
     template <typename T>
@@ -38,15 +38,27 @@ namespace WavTools
     }
 
     template <>
-    inline int8_t convert_sample<int8_t>(float sample)
+    inline uint8_t convert_sample<uint8_t>(float sample)
     {
-        return static_cast<int8_t>(sample * 256);
+        return static_cast<uint8_t>(sample * 127) + uint8_t{128};
     }
 
     template <typename T>
-    inline T convert_sample(int8_t sample)
+    inline T convert_sample(uint8_t sample)
     {
         return sample;
+    }
+    
+    template <>
+    inline float convert_sample(uint8_t sample)
+    {
+        return (sample - 128) / 128.0f;
+    }
+
+    template <>
+    inline int16_t convert_sample(uint8_t sample)
+    {
+        return static_cast<int16_t>(sample - 128);
     }
     /// Common Functions to convert the sample type
 };
