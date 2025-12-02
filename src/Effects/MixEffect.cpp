@@ -33,6 +33,7 @@ void MixEffect<SampleType>::process(AudioBuffer<SampleType> &buffer)
     }
     else
     {
+        /// FIXME: Stereo to Mono not working!
         size_t MONO_CHANNEL = 1;
         /// Left Channel comes first
         auto LEFT_CHANNEL = [](const size_t &sample){
