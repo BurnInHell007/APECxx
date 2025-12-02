@@ -9,3 +9,4 @@ build/cmake_install.cmake
 googletest/
 build/
 .zed/
+wav-files/testfile.*
