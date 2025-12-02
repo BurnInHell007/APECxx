@@ -3,8 +3,9 @@ cmake_minimum_required(VERSION 4.0.0)
 set(This Tests)
 
 set(Sources
-    "test_audio_buffer.cpp"
-    "test_wav_io.cpp"
+"test_effects.cpp"
+"test_wav_io.cpp"
+"test_audio_buffer.cpp"
 )
 
 add_executable(${This} ${Sources})
@@ -15,7 +16,9 @@ target_link_libraries(${This} PUBLIC
 )
 
 target_include_directories(${This} PRIVATE
-    ../include
+    ../include/
+    ../include/WavIO/
+    ../include/Effects/
 )
 
 add_test(

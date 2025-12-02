@@ -20,7 +20,7 @@ void GainEffect<SampleType>::process(AudioBuffer<SampleType> &buffer)
         for (size_t sample = 0; sample < buffer.num_samples(); sample++)
         {
             // channel + 2 * samples to get the left first then the right
-            buffer.data()[channel + 2 * sample] = gainFactor_ * buffer.data()[channel + 2 * sample];
+            buffer.data()[channel + buffer.num_channels() * sample] = gainFactor_ * buffer.data()[channel + buffer.num_channels() *sample];
         }
     }
 }

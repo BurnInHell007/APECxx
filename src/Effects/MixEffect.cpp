@@ -17,6 +17,10 @@ MixEffect<SampleType>::MixEffect(bool activatePan, float panValue)
 template <typename SampleType>
 void MixEffect<SampleType>::process(AudioBuffer<SampleType> &buffer)
 {
+    /// Cannot mix mono channel audio
+    if(buffer.num_channels() == 1)
+        return;
+    assert(buffer.num_channels() == 2);
     /// Averaging the stereo channel will result in mixed mono audio
     /// Or can pan to left or right with a ratio p
     /// L[n] = L[n]*(1-p) | R[n] = R[n]*p
@@ -27,7 +31,7 @@ void MixEffect<SampleType>::process(AudioBuffer<SampleType> &buffer)
         {
             for (size_t sample = 0; sample < buffer.num_samples(); sample++)
             {
-                buffer.data()[channel + 2 * sample] = static_cast<SampleType>(buffer.data()[channel + 2 * sample] * (channel ? panValue : (1.0f - panValue)));
+                buffer.data()[channel + buffer.num_channels() * sample] = static_cast<SampleType>(buffer.data()[channel + buffer.num_channels() * sample] * (channel ? panValue : (1.0f - panValue)));
             }
         }
     }

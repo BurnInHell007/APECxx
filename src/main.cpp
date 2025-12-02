@@ -47,10 +47,10 @@ int main(int argc, char **argv)
         std::cout << "Successfully wrote " << argv[2] << "\n";
 
         /// Gain Effect test
-        // GainEffect<float> gainEffect(2.0f);
-        // gainEffect.process(buffer);
+        GainEffect<float> gainEffect(1.2f);
+        gainEffect.process(buffer);
 
-        // writer.save("../wav-files/gainEffect.wav", buffer);
+        writer.save("../wav-files/gainEffect.wav", buffer);
 
         /// Fade Effect test
         {
@@ -72,9 +72,9 @@ int main(int argc, char **argv)
             panMixEffect.process(buffer);
             writer.save("../wav-files/panEffect.wav", buffer);
 
-            MixEffect<float> mixEffect;
-            mixEffect.process(buffer);
-            writer.save("../wav-files/mixEffect.wav", buffer);
+            // MixEffect<float> mixEffect;
+            // mixEffect.process(buffer);
+            // writer.save("../wav-files/mixEffect.wav", buffer);
         }
 
         std::cout << "Sucessfully wrote Effect filters\n";

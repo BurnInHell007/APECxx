@@ -29,7 +29,7 @@ void FadeEffect<SampleType>::process(AudioBuffer<SampleType> &buffer)
     {
         for (size_t sample = 0; sample < std::min(buffer.num_samples(), no_of_samples); sample++)
         {
-            buffer.data()[channel + 2 * sample] = buffer.data()[channel + 2 * sample] * (startFactor_ + (endFactor_ - startFactor_) * (static_cast<float>(std::min(no_of_samples, buffer.num_samples())) / buffer.num_samples()));
+            buffer.data()[channel + buffer.num_channels() * sample] = buffer.data()[channel + buffer.num_channels() * sample] * (startFactor_ + (endFactor_ - startFactor_) * (static_cast<float>(std::min(no_of_samples, buffer.num_samples())) / buffer.num_samples()));
         }
     }
 }

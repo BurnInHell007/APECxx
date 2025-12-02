@@ -13,7 +13,9 @@ enable_testing()
 add_subdirectory(googletest)
 
 set(Headers 
-    "include/*"
+    "include/"
+    "include/WavIO/"
+    "include/Effects/"
 )
 
 # file(GLOB Sources "src/*.cpp")
@@ -31,7 +33,7 @@ add_library(${This} ${Sources} ${Header})
 
 add_subdirectory(tests)
 
-target_include_directories(${This} PUBLIC "include")
+target_include_directories(${This} PUBLIC ${Headers})
 
 add_executable(${This}_Run ${Sources})
 
