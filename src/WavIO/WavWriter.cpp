@@ -68,6 +68,10 @@ void WavTools::Writer::save(const std::string &filepath, const AudioBuffer<Sampl
         throw std::runtime_error("Cannot create file : " + filepath);
     }
 
+    /// FIXED: num_channels will be dynamic now as per buffer
+    /// so now if stereo changes to mono then no problem it propogates
+    num_channels_ = buffer.num_channels();
+
     write_header(file_.get(), data_size);
 
     if (bits_per_sample_ == 32)
