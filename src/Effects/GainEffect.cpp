@@ -1,20 +1,19 @@
-/// GainEffect Implementation
 #include "Effects/GainEffect.hpp"
 
-/// @brief GainEffect Instance to introduce Amplification (both up and down)
-/// @tparam SampleType 
-/// @param gain GainFactor with which the amplification varies
+/*************************************
+ * @brief GainEffect Instance to introduce Amplification (both up and down)
+ * @tparam SampleType
+ * @param gain GainFactor with which the amplification varies
+ ************************************/
 template <typename SampleType>
 GainEffect<SampleType>::GainEffect(float gain)
     : gainFactor_(gain) {}
 
-/// @brief Gain Effect:
-///
-/// gain > 1.0 Amplitude gain
-///
-/// gain < 1.0 Amplitude loss
-/// @tparam SampleType : float | int16_t | int8_t
-/// @param buffer Buffer reference 
+/************************************
+ * @brief Increases/Decreases the amplitude of buffer input, with safety clipping enabled
+ * @tparam SampleType float, int16_t, int8_t
+ * @param buffer Reference buffer
+ ***********************************/
 template <typename SampleType>
 void GainEffect<SampleType>::process(AudioBuffer<SampleType> &buffer) 
 {
