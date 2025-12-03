@@ -10,3 +10,4 @@ googletest/
 build/
 .zed/
 wav-files/testfile.*
+wav-files/stereo_12mb.wav
