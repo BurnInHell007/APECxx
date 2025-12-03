@@ -1,11 +1,13 @@
 /// FadeEffect Implementation
 #include "Effects/FadeEffect.hpp"
 
-/// @brief FadeEffect Instance to introduce FadeIn or FadeOut effects
-/// @tparam SampleType 
-/// @param start FadeIn: start = 0.0 | FadeOut: start = 1.0
-/// @param end FadeIn: end = 1.0 | FadeOut : end = 0.0
-/// @param samples Number of samples which undergo this effect
+/************************************
+ * @brief FadeEffect Instance to introduce FadeIn or FadeOut effects
+ * @tparam SampleType
+ * @param start float (0.0 <= start <= 1.0)
+ * @param end   float (0.0 <= end <= 1.0)
+ * @param samples Number of samples which undergo this effect
+ ***********************************/
 template <typename SampleType>
 FadeEffect<SampleType>::FadeEffect(float start, float end, size_t samples)
     : startFactor_(start)
@@ -13,17 +15,24 @@ FadeEffect<SampleType>::FadeEffect(float start, float end, size_t samples)
     , no_of_samples(samples)
 {}
 
-/// TODO:
-/// FIXME: Effects are only applied to the begining of the audio Buffer
-/// @brief FadeIn or FadeOut Effect | s=0,e=1 (FadeIn) | s=1,e=0 (FadeOut)
+/************************************
+ * TODO:
+ * FIXME: Effects can only be applied at the beginning or the audio buffer
+ * @brief FadeIn or FadeOut Effects | s=0,e=1 (FadeIn) | s=1,e=0 (FadeOut)
+ * 
+ * @details
+ * alternative L and R values
+ * Gain[n] = start + (end - start)* n / N
+ * y[n] = x[n].Gain[n]
+ * FadeIn  : start = 0.0, end = 1.0
+ * FadeOut : start = 1.0, end = 0.0
+ * 
+ * @tparam SampleType
+ * @param buffer
+ ***********************************/
 template <typename SampleType>
 void FadeEffect<SampleType>::process(AudioBuffer<SampleType> &buffer)
 {
-    // alternative L and R values
-    // Gain[n] = start + (end - start)* n / N
-    // y[n] = x[n].Gain[n]
-    // FadeIn  : start = 0.0, end = 1.0
-    // FadeOut : start = 1.0, end = 0.0
 
     for (size_t channel = 0; channel < buffer.num_channels(); channel++)
     {
