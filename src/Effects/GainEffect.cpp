@@ -21,7 +21,7 @@ void GainEffect<SampleType>::process(AudioBuffer<SampleType> &buffer)
 
     for (size_t sample = 0; sample < total_samples; sample++)
     {
-        buffer.data()[sample] = buffer.data[sample] * gainFactor_;
+        buffer.data()[sample] = buffer.data()[sample] * gainFactor_;
         /// Safety Clipping
         if constexpr (std::is_floating_point<SampleType>::value)
         {

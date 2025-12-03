@@ -19,26 +19,44 @@ FadeEffect<SampleType>::FadeEffect(float start, float end, size_t samples)
  * TODO:
  * FIXME: Effects can only be applied at the beginning or the audio buffer
  * @brief FadeIn or FadeOut Effects | s=0,e=1 (FadeIn) | s=1,e=0 (FadeOut)
- * 
  * @details
  * alternative L and R values
  * Gain[n] = start + (end - start)* n / N
  * y[n] = x[n].Gain[n]
  * FadeIn  : start = 0.0, end = 1.0
  * FadeOut : start = 1.0, end = 0.0
- * 
+ *
  * @tparam SampleType
  * @param buffer
  ***********************************/
 template <typename SampleType>
 void FadeEffect<SampleType>::process(AudioBuffer<SampleType> &buffer)
 {
+    size_t num_samples = std::min(buffer.num_samples(), no_of_samples);
+    size_t total_samples = buffer.num_channels() * num_samples;
+    float gainFactor = startFactor_ +
+                       ((endFactor_ - startFactor_) *
+                        static_cast<float>(num_samples) /
+                        buffer.num_samples());
 
-    for (size_t channel = 0; channel < buffer.num_channels(); channel++)
+    for (size_t sample = 0; sample < total_samples; sample++)
     {
-        for (size_t sample = 0; sample < std::min(buffer.num_samples(), no_of_samples); sample++)
+        buffer.data()[sample] = static_cast<SampleType>(buffer.data()[sample] * gainFactor);
+
+        /// Safety clipping
+        if constexpr (std::is_floating_point<SampleType>::value)
         {
-            buffer.data()[channel + buffer.num_channels() * sample] = buffer.data()[channel + buffer.num_channels() * sample] * (startFactor_ + (endFactor_ - startFactor_) * (static_cast<float>(std::min(no_of_samples, buffer.num_samples())) / buffer.num_samples()));
+            if(buffer.data()[sample] > 1.0f)
+                buffer.data()[sample] = 1.0f;
+            if(buffer.data()[sample] < -1.0f)
+                buffer.data()[sample] = -1.0f;
+        }
+        else if constexpr (std::is_integral<SampleType>::value)
+        {
+            float max_val = std::numeric_limits<SampleType>::max();
+            float min_val = std::numeric_limits<SampleType>::lowest();
+            buffer.data()[sample] = (buffer.data()[sample] > max_val) ? max_val : buffer.data()[sample];
+            buffer.data()[sample] = (buffer.data()[sample] < min_val) ? min_val : buffer.data()[sample];
         }
     }
 }
