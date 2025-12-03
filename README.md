@@ -52,6 +52,6 @@ This project is open for anyone curious about DSP or C++. If you have suggestion
 
 **Developed by [Vijay Kumar B]**
 
-[LinkedIn](www.linkedin.com/in/vijay-kumar-b-vkb007)
+[LinkedIn](https://linkedin.com/in/vijay-kumar-b-vkb007)
 
-[X.com](www.x.com/burninhell_oo7)
+[X.com](https://x.com/burninhell_oo7)
