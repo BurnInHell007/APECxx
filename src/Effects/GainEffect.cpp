@@ -14,13 +14,25 @@ GainEffect<SampleType>::GainEffect(float gain)
 template <typename SampleType>
 void GainEffect<SampleType>::process(AudioBuffer<SampleType> &buffer) 
 {
-    // alternative L and R values
-    for (size_t channel = 0; channel < buffer.num_channels(); channel++)
+    size_t total_samples = buffer.num_channels() * buffer.num_samples();
+
+    for (size_t sample = 0; sample < total_samples; sample++)
     {
-        for (size_t sample = 0; sample < buffer.num_samples(); sample++)
+        buffer.data()[sample] = buffer.data[sample] * gainFactor_;
+        /// Safety Clipping
+        if constexpr (std::is_floating_point<SampleType>::value)
         {
-            // channel + 2 * samples to get the left first then the right
-            buffer.data()[channel + buffer.num_channels() * sample] = gainFactor_ * buffer.data()[channel + buffer.num_channels() *sample];
+            if (buffer.data()[sample] > 1.0f)
+                buffer.data()[sample] = 1.0f;
+            if (buffer.data()[sample] < -1.0f)
+                buffer.data()[sample] = -1.0f;
+        }
+        else if constexpr (std::is_integral<SampleType>::value)
+        {
+            float max_val = std::numeric_limits<SampleType>::max();
+            float min_val = std::numeric_limits<SampleType>::lowest();
+            buffer.data()[sample] = (buffer.data()[sample] > max_val) ? max_val : buffer.data()[sample];
+            buffer.data()[sample] = (buffer.data()[sample] < min_val) ? min_val : buffer.data()[sample];
         }
     }
 }
