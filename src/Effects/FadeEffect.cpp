@@ -6,18 +6,16 @@
  * @tparam SampleType
  * @param start float (0.0 <= start <= 1.0)
  * @param end   float (0.0 <= end <= 1.0)
+ * @param startPos Position to start effect from
  * @param samples Number of samples which undergo this effect
  ***********************************/
 template <typename SampleType>
-FadeEffect<SampleType>::FadeEffect(float start, float end, size_t samples)
-    : startFactor_(start)
-    , endFactor_(end)
-    , no_of_samples(samples)
-{}
+FadeEffect<SampleType>::FadeEffect(float start, float end, size_t startPos, size_t samples)
+    : startFactor_(start), endFactor_(end), startPos_(startPos), no_of_samples(samples)
+{
+}
 
 /************************************
- * TODO:
- * FIXME: Effects can only be applied at the beginning or the audio buffer
  * @brief FadeIn or FadeOut Effects | s=0,e=1 (FadeIn) | s=1,e=0 (FadeOut)
  * @details
  * alternative L and R values
@@ -33,13 +31,16 @@ template <typename SampleType>
 void FadeEffect<SampleType>::process(AudioBuffer<SampleType> &buffer)
 {
     size_t num_samples = std::min(buffer.num_samples(), no_of_samples);
-    size_t total_samples = buffer.num_channels() * num_samples;
+    size_t newStartPos = buffer.num_channels() * startPos_;
+    size_t total_samples = std::min(buffer.num_samples() * buffer.num_channels(), buffer.num_channels() * num_samples + newStartPos);
+
+    assert(newStartPos <= total_samples);
     float gainFactor = startFactor_ +
                        ((endFactor_ - startFactor_) *
                         static_cast<float>(num_samples) /
                         buffer.num_samples());
 
-    for (size_t sample = 0; sample < total_samples; sample++)
+    for (size_t sample = newStartPos; sample < total_samples; sample++)
     {
         buffer.data()[sample] = static_cast<SampleType>(buffer.data()[sample] * gainFactor);
 

@@ -56,12 +56,12 @@ int main(int argc, char **argv)
         {
             float FadeInStart = 0.1, FadeInEnd = 1.0;
             size_t samples = buffer.num_samples() / 4;
-            FadeEffect<float> fadeIn(FadeInStart, FadeInEnd, samples);
+            FadeEffect<float> fadeIn(FadeInStart, FadeInEnd, 0, samples);
             fadeIn.process(buffer);
             writer.save("../wav-files/fadeInEffect.wav", buffer);
             
             float FadeOutStart = 1.0, FadeOutEnd = 0.5;
-            FadeEffect<float> fadeOut(FadeOutStart, FadeOutEnd, samples);
+            FadeEffect<float> fadeOut(FadeOutStart, FadeOutEnd, 3 * samples, samples);
             fadeOut.process(buffer);
             writer.save("../wav-files/fadeOutEffect.wav", buffer);
         }

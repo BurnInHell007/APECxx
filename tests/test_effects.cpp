@@ -33,7 +33,7 @@ TEST(EffectTests, GainEffectTest)
             // Test
             try
             {
-                GainEffect<float> gainEffect(1.5f);
+                GainEffect<float> gainEffect(0.5f);
                 gainEffect.process(buffer);
                 writer.save(outputPath, buffer);
             }
@@ -61,7 +61,7 @@ TEST(EffectTests, FadeInEffectTest)
         WavTools::Writer writer(reader.sample_rate(), reader.num_channels(), reader.bits_per_sample());
         auto buffer = reader.read<float>();
         // Test
-        FadeEffect<float> fadeIn(0.0f, 1.0f, std::min(size_t{100}, buffer.num_samples()));
+        FadeEffect<float> fadeIn(0.0f, 1.0f, 0, std::min(size_t{100}, buffer.num_samples()));
         fadeIn.process(buffer);
         writer.save(outputPath, buffer);
 
@@ -83,7 +83,7 @@ TEST(EffectTests, FadeOutEffectTest)
         WavTools::Writer writer(reader.sample_rate(), reader.num_channels(), reader.bits_per_sample());
         auto buffer = reader.read<float>();
         // Test
-        FadeEffect<float> fadeOut(1.0f, 0.0f, std::min(size_t{100}, buffer.num_samples()));
+        FadeEffect<float> fadeOut(1.0f, 0.0f, static_cast<size_t>(buffer.num_samples() * 3.0 / 4), std::min(size_t{100}, buffer.num_samples()));
         fadeOut.process(buffer);
         writer.save(outputPath, buffer);
 

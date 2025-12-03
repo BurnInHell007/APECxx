@@ -8,7 +8,7 @@ template <typename SampleType>
 class FadeEffect : public AudioEffect<SampleType>
 {
 public:
-    FadeEffect(float start, float end, size_t samples);
+    FadeEffect(float start, float end, size_t startPos, size_t samples);
     ~FadeEffect() = default;
     FadeEffect(const FadeEffect &other) = default;
     FadeEffect(FadeEffect &&other) = default;
@@ -20,6 +20,7 @@ public:
 private:
     float startFactor_;
     float endFactor_;
+    size_t startPos_;
     size_t no_of_samples;
 };
 #endif // FADE_EFFECT_HPP_
