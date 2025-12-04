@@ -3,11 +3,7 @@
 *.o
 *.obj
 .idea
-build/CMakeFiles
-build/CMakeCache.txt
-build/cmake_install.cmake
-googletest/
 build/
+googletest/
 .zed/
-wav-files/testfile.*
-wav-files/stereo_12mb.wav
+wav-files/
