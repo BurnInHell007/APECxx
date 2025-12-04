@@ -7,13 +7,15 @@ MixEffect<SampleType>::MixEffect(bool activatePan, float panValue)
     , panValue(panValue)
 {}
 
-/// @brief Apply MixEffect on buffer:
-///
-///> PaneEffect then applies Left and Right pane 
-/// 
-///> MixEffect then change the buffer totally.
-/// @tparam SampleType 
-/// @param buffer reference to buffer to change
+/***********************************
+ * @brief Apply MixEffect on buffer:
+ * 
+ * > PanEffect then applies Left and Right pane
+ * 
+ * > MixEffect then change the buffer totally
+ * @tparam SampleType 
+ * @param buffer 
+ **********************************/
 template <typename SampleType>
 void MixEffect<SampleType>::process(AudioBuffer<SampleType> &buffer)
 {
@@ -60,6 +62,8 @@ void MixEffect<SampleType>::process(AudioBuffer<SampleType> &buffer)
 }
 
 template class MixEffect<float>;
+
 template class MixEffect<int16_t>;
+
 template class MixEffect<uint8_t>;
 

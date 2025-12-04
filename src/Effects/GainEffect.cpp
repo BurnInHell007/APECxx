@@ -41,5 +41,7 @@ void GainEffect<SampleType>::process(AudioBuffer<SampleType> &buffer)
 }
 
 template class GainEffect<float>;
+
 template class GainEffect<int16_t>;
+
 template class GainEffect<uint8_t>;

@@ -63,5 +63,7 @@ void FadeEffect<SampleType>::process(AudioBuffer<SampleType> &buffer)
 }
 
 template class FadeEffect<float>;
+
 template class FadeEffect<int16_t>;
+
 template class FadeEffect<uint8_t>;
