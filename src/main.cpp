@@ -4,6 +4,8 @@
 #include "Effects/GainEffect.hpp"
 #include "Effects/FadeEffect.hpp"
 #include "Effects/MixEffect.hpp"
+#include "DSP/BiQuadFilter.hpp"
+#include "DSP/FilterDesign.hpp"
 
 int main(int argc, char **argv)
 {
@@ -39,7 +41,7 @@ int main(int argc, char **argv)
          */
 
         // Write output file
-        // WavTools::Writer writer(reader.sample_rate(), reader.num_channels(), reader.bits_per_sample());
+        WavTools::Writer writer(reader.sample_rate(), reader.num_channels(), reader.bits_per_sample());
 
         // /// To save file by default
         // writer.save(argv[2], buffer);
@@ -78,6 +80,18 @@ int main(int argc, char **argv)
         // }
 
         // std::cout << "Sucessfully wrote Effect filters\n";
+        BiQuadFilter<float> lowPassFilter;
+        double sampleRate = static_cast<double>(reader.sample_rate());
+        BiQuadCoefficients lpCoeffs = FilterDesign::makeLowPass(sampleRate, 500.0, 0.707);
+        lowPassFilter.setCoefficients(lpCoeffs);
+
+        for (size_t i = 0; i < buffer.num_samples(); i++)
+        {
+            buffer.data()[i] = lowPassFilter.process(buffer.data()[i]);
+        }
+
+        writer.save("../wav-files/testfile.lowPassFilter.wav", buffer);
+        std::cout << "Filter done\n";
     }
     catch (const std::exception &e)
     {

@@ -27,6 +27,8 @@ set(Sources
     "src/Effects/GainEffect.cpp"
     "src/Effects/FadeEffect.cpp"
     "src/Effects/MixEffect.cpp"
+    "src/DSP/BiQuadFilter.cpp"
+    "src/DSP/FilterDesign.cpp"
 )
 
 add_library(${This} ${Sources} ${Header})
