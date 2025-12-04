@@ -1,10 +1,6 @@
 #include "AudioBuffer.hpp"
 #include "WavIO/WavReader.hpp"
 
-/*************************
- * @brief Creates a WAV Reader instance that can read any WAV file
- * @param filename
- ************************/
 WavTools::Reader::Reader(const std::string &filename)
     : file_(std::fopen(filename.c_str(), "rb"), &std::fclose)
 {
@@ -90,11 +86,6 @@ void WavTools::Reader::read_header()
     }
 }
 
-/*****************************
- * @brief Copy values into AudioBuffer
- * @tparam SampleType
- * @return Filled buffer
- ****************************/
 template <typename SampleType>
 AudioBuffer<SampleType> WavTools::Reader::read()
 {

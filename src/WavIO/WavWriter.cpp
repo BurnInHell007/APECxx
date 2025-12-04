@@ -1,23 +1,11 @@
 #include "AudioBuffer.hpp"
 #include "WavIO/WavWriter.hpp"
 
-/******************************
- * @brief Wav Writer instance for creating wav copies
- * @param sample_rate 
- * @param num_channels 
- * @param bits_per_sample 
- ******************************/
 WavTools::Writer::Writer(uint32_t sample_rate, uint16_t num_channels, uint16_t bits_per_sample)
     : sample_rate_(sample_rate), num_channels_(num_channels), bits_per_sample_(bits_per_sample)
 {
 }
 
-/******************************
- * @brief write header to files
- * @note did a dirty fix for stereo to mono buffer change
- * @param file_ 
- * @param data_size 
- *****************************/
 void WavTools::Writer::write_header(std::FILE *file_, uint32_t data_size)
 {
     size_t INT_BLOCK = 1;
@@ -61,12 +49,6 @@ void WavTools::Writer::write_header(std::FILE *file_, uint32_t data_size)
     write_u32(data_size);
 }
 
-/**********************************
- * @brief Copies metadata from buffer and save it to given path
- * @tparam SampleType 
- * @param filepath 
- * @param buffer 
- *********************************/
 template <typename SampleType>
 void WavTools::Writer::save(const std::string &filepath, const AudioBuffer<SampleType> &buffer)
 {
