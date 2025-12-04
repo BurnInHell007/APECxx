@@ -47,6 +47,33 @@ I am breaking this massive undertaking into 8 distinct phases. Here is where the
 
 ---
 
+## Installation and Usage
+Follow these instruction to sucessfully replicate the results.
+
+Run `cmake` to generate build system:
+```bash
+mkdir build
+cd build
+cmake ..
+```
+
+Build project by issuing:
+```bash
+cmake --build .
+```
+
+Run all tests by issuing:
+```bash
+ctest
+```
+
+In the build folder now you can access `APECxx_Run.exe`, use it as follow:
+```bash
+.\APECxx_Run.exe <input_path.wav> <output_path.wav>
+```
+
+---
+
 ## 🤝 Connect
 This project is open for anyone curious about DSP or C++. If you have suggestions, spot a memory leak, or just want to chat about audio programming or your interest in C++, feel free to reach out!
 
