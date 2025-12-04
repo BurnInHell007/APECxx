@@ -1,9 +1,9 @@
+.zed/
 .vscode
+.idea
 *.exe
 *.o
 *.obj
-.idea
 build/
 googletest/
-.zed/
 wav-files/
