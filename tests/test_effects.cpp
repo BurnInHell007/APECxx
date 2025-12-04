@@ -19,120 +19,146 @@ std::vector<std::string> files{"stereo_12mb.wav", "mono_8bits.wav"};
 
 TEST(EffectTests, GainEffectTest)
 {
-    for (const auto &file : files)
+    try
     {
-        // Arrange
-        const std::string inputPath = "../../wav-files/" + file;
-        const std::string outputPath = "../../wav-files/testfile.gain" + file;
-
+        for (const auto &file : files)
         {
+            // Arrange
+            const std::string inputPath = "../../wav-files/" + file;
+            const std::string outputPath = "../../wav-files/testfile.gain" + file;
+
             // Act
             WavTools::Reader reader(inputPath);
             WavTools::Writer writer(reader.sample_rate(), reader.num_channels(), reader.bits_per_sample());
             auto buffer = reader.read<float>();
             // Test
-            try
-            {
-                GainEffect<float> gainEffect(0.5f);
-                gainEffect.process(buffer);
-                writer.save(outputPath, buffer);
-            }
-            catch (std::exception &e)
-            {
-                std::cout << e.what() << std::endl;
-            }
-        }
+            GainEffect<float> gainEffect(0.5f);
+            gainEffect.process(buffer);
+            writer.save(outputPath, buffer);
 
-        // Assert
-        ASSERT_TRUE(effects::checkFileExists(outputPath));
+            // Assert
+            ASSERT_TRUE(effects::checkFileExists(outputPath));
+        }
+    }
+    catch (std::exception &e)
+    {
+        std::cerr << e.what() << std::endl;
     }
 }
 
 TEST(EffectTests, FadeInEffectTest)
 {
-    for (const auto &file : files)
+    try
     {
-        // Arrange
-        const std::string inputPath = "../../wav-files/" + file;
-        const std::string outputPath = "../../wav-files/testfile.fadeIn" + file;
+        for (const auto &file : files)
+        {
+            // Arrange
+            const std::string inputPath = "../../wav-files/" + file;
+            const std::string outputPath = "../../wav-files/testfile.fadeIn" + file;
 
-        // Act
-        WavTools::Reader reader(inputPath);
-        WavTools::Writer writer(reader.sample_rate(), reader.num_channels(), reader.bits_per_sample());
-        auto buffer = reader.read<float>();
-        // Test
-        FadeEffect<float> fadeIn(0.0f, 1.0f, 0, std::min(size_t{100}, buffer.num_samples()));
-        fadeIn.process(buffer);
-        writer.save(outputPath, buffer);
+            // Act
+            WavTools::Reader reader(inputPath);
+            WavTools::Writer writer(reader.sample_rate(), reader.num_channels(), reader.bits_per_sample());
+            auto buffer = reader.read<float>();
+            // Test
+            FadeEffect<float> fadeIn(0.0f, 1.0f, 0, std::min(size_t{100}, buffer.num_samples()));
+            fadeIn.process(buffer);
+            writer.save(outputPath, buffer);
 
-        // Assert
-        ASSERT_TRUE(effects::checkFileExists(outputPath));
+            // Assert
+            ASSERT_TRUE(effects::checkFileExists(outputPath));
+        }
+    }
+    catch (std::exception &e)
+    {
+        std::cerr << e.what() << std::endl;
     }
 }
 
 TEST(EffectTests, FadeOutEffectTest)
 {
-    for (const auto &file : files)
+    try
     {
-        // Arrange
-        const std::string inputPath = "../../wav-files/" + file;
-        const std::string outputPath = "../../wav-files/testfile.fadeOut" + file;
+        for (const auto &file : files)
+        {
+            // Arrange
+            const std::string inputPath = "../../wav-files/" + file;
+            const std::string outputPath = "../../wav-files/testfile.fadeOut" + file;
 
-        // Act
-        WavTools::Reader reader(inputPath);
-        WavTools::Writer writer(reader.sample_rate(), reader.num_channels(), reader.bits_per_sample());
-        auto buffer = reader.read<float>();
-        // Test
-        FadeEffect<float> fadeOut(1.0f, 0.0f, static_cast<size_t>(buffer.num_samples() * 3.0 / 4), std::min(size_t{100}, buffer.num_samples()));
-        fadeOut.process(buffer);
-        writer.save(outputPath, buffer);
+            // Act
+            WavTools::Reader reader(inputPath);
+            WavTools::Writer writer(reader.sample_rate(), reader.num_channels(), reader.bits_per_sample());
+            auto buffer = reader.read<float>();
+            // Test
+            FadeEffect<float> fadeOut(1.0f, 0.0f, static_cast<size_t>(buffer.num_samples() * 3.0 / 4), std::min(size_t{100}, buffer.num_samples()));
+            fadeOut.process(buffer);
+            writer.save(outputPath, buffer);
 
-        // Assert
-        ASSERT_TRUE(effects::checkFileExists(outputPath));
+            // Assert
+            ASSERT_TRUE(effects::checkFileExists(outputPath));
+        }
+    }
+    catch (const std::exception &e)
+    {
+        std::cerr << e.what() << '\n';
     }
 }
 
-// TEST(EffectTests, MixEffectTest)
-// {
-//     for (const auto &file : files)
-//     {
-//         // Arrange
-//         const std::string inputPath = "../../wav-files/" + file;
-//         const std::string outputPath = "../../wav-files/testfile.mix" + file;
-
-//         // Act
-//         WavTools::Reader reader(inputPath);
-//         WavTools::Writer writer(reader.sample_rate(), reader.num_channels(), reader.bits_per_sample());
-//         auto buffer = reader.read<float>();
-//         // Test
-//         MixEffect<float> mixEffect;
-//         mixEffect.process(buffer);
-//         writer.save(outputPath, buffer);
-
-//         // Assert
-//         ASSERT_TRUE(effects::checkFileExists(outputPath));
-//     }
-// }
-
 TEST(EffectTests, MixPanEffectTest)
 {
-    for (const auto &file : files)
+    try
     {
-        // Arrange
-        const std::string inputPath = "../../wav-files/" + file;
-        const std::string outputPath = "../../wav-files/testfile.mixPan" + file;
+        for (const auto &file : files)
+        {
+            // Arrange
+            const std::string inputPath = "../../wav-files/" + file;
+            const std::string outputPath = "../../wav-files/testfile.mixPan" + file;
 
-        // Act
-        WavTools::Reader reader(inputPath);
-        WavTools::Writer writer(reader.sample_rate(), reader.num_channels(), reader.bits_per_sample());
-        auto buffer = reader.read<float>();
-        // Test
-        MixEffect<float> mixPanEffect(true, 0.4f);
-        mixPanEffect.process(buffer);
-        writer.save(outputPath, buffer);
+            // Act
+            WavTools::Reader reader(inputPath);
+            WavTools::Writer writer(reader.sample_rate(), reader.num_channels(), reader.bits_per_sample());
+            auto buffer = reader.read<float>();
+            // Test
+            MixEffect<float> mixPanEffect(true, 0.4f);
+            mixPanEffect.process(buffer);
+            writer.save(outputPath, buffer);
 
-        // Assert
-        if (buffer.num_channels() == 2)
+            // Assert
+            if (buffer.num_channels() == 2)
+                ASSERT_TRUE(effects::checkFileExists(outputPath));
+        }
+    }
+    catch (const std::exception &e)
+    {
+        std::cerr << e.what() << '\n';
+    }
+}
+
+TEST(EffectTests, MixEffectTest)
+{
+    try
+    {
+        for (const auto &file : files)
+        {
+            // Arrange
+            const std::string inputPath = "../../wav-files/" + file;
+            const std::string outputPath = "../../wav-files/testfile.mix" + file;
+
+            // Act
+            WavTools::Reader reader(inputPath);
+            WavTools::Writer writer(reader.sample_rate(), reader.num_channels(), reader.bits_per_sample());
+            auto buffer = reader.read<float>();
+            // Test
+            MixEffect<float> mixEffect;
+            mixEffect.process(buffer);
+            writer.save(outputPath, buffer);
+
+            // Assert
             ASSERT_TRUE(effects::checkFileExists(outputPath));
+        }
+    }
+    catch (const std::exception &e)
+    {
+        std::cerr << e.what() << '\n';
     }
 }

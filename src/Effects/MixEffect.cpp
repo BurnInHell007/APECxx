@@ -49,15 +49,18 @@ void MixEffect<SampleType>::process(AudioBuffer<SampleType> &buffer)
         auto RIGHT_CHANNEL = [](const size_t &sample){
             return 2 * sample + 1;
         };
+
         /// Stereo to Mono
         /// num_samples / 2 becuse L and R channels will be merged
+
         AudioBuffer<SampleType> temp(buffer.num_samples()/2, MONO_CHANNEL);
 
-        for (size_t sample = 0; sample < buffer.num_samples(); sample++)
+        for (size_t sample = 0; sample < temp.num_samples(); sample++)
         {
             temp.data()[sample] = (buffer.data()[LEFT_CHANNEL(sample)] + buffer.data()[RIGHT_CHANNEL(sample)])/2;
         }
-            buffer = std::move(temp);
+
+        buffer = std::move(temp);
     }
 }
 

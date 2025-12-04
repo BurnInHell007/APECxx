@@ -39,45 +39,45 @@ int main(int argc, char **argv)
          */
 
         // Write output file
-        WavTools::Writer writer(reader.sample_rate(), reader.num_channels(), reader.bits_per_sample());
+        // WavTools::Writer writer(reader.sample_rate(), reader.num_channels(), reader.bits_per_sample());
 
-        /// To save file by default
-        writer.save(argv[2], buffer);
+        // /// To save file by default
+        // writer.save(argv[2], buffer);
 
-        std::cout << "Successfully wrote " << argv[2] << "\n";
+        // std::cout << "Successfully wrote " << argv[2] << "\n";
 
-        /// Gain Effect test
-        GainEffect<float> gainEffect(1.2f);
-        gainEffect.process(buffer);
+        // /// Gain Effect test
+        // GainEffect<float> gainEffect(1.2f);
+        // gainEffect.process(buffer);
 
-        writer.save("../wav-files/gainEffect.wav", buffer);
+        // writer.save("../wav-files/gainEffect.wav", buffer);
 
-        /// Fade Effect test
-        {
-            float FadeInStart = 0.1, FadeInEnd = 1.0;
-            size_t samples = buffer.num_samples() / 4;
-            FadeEffect<float> fadeIn(FadeInStart, FadeInEnd, 0, samples);
-            fadeIn.process(buffer);
-            writer.save("../wav-files/fadeInEffect.wav", buffer);
+        // /// Fade Effect test
+        // {
+        //     float FadeInStart = 0.1, FadeInEnd = 1.0;
+        //     size_t samples = buffer.num_samples() / 4;
+        //     FadeEffect<float> fadeIn(FadeInStart, FadeInEnd, 0, samples);
+        //     fadeIn.process(buffer);
+        //     writer.save("../wav-files/fadeInEffect.wav", buffer);
             
-            float FadeOutStart = 1.0, FadeOutEnd = 0.5;
-            FadeEffect<float> fadeOut(FadeOutStart, FadeOutEnd, 3 * samples, samples);
-            fadeOut.process(buffer);
-            writer.save("../wav-files/fadeOutEffect.wav", buffer);
-        }
+        //     float FadeOutStart = 1.0, FadeOutEnd = 0.5;
+        //     FadeEffect<float> fadeOut(FadeOutStart, FadeOutEnd, 3 * samples, samples);
+        //     fadeOut.process(buffer);
+        //     writer.save("../wav-files/fadeOutEffect.wav", buffer);
+        // }
 
-        {
-            float panValue = 0.2f;
-            MixEffect<float> panMixEffect(true, panValue);
-            panMixEffect.process(buffer);
-            writer.save("../wav-files/panEffect.wav", buffer);
+        // {
+        //     float panValue = 0.2f;
+        //     MixEffect<float> panMixEffect(true, panValue);
+        //     panMixEffect.process(buffer);
+        //     writer.save("../wav-files/panEffect.wav", buffer);
 
-            // MixEffect<float> mixEffect;
-            // mixEffect.process(buffer);
-            // writer.save("../wav-files/mixEffect.wav", buffer);
-        }
+        //     // MixEffect<float> mixEffect;
+        //     // mixEffect.process(buffer);
+        //     // writer.save("../wav-files/mixEffect.wav", buffer);
+        // }
 
-        std::cout << "Sucessfully wrote Effect filters\n";
+        // std::cout << "Sucessfully wrote Effect filters\n";
     }
     catch (const std::exception &e)
     {
