@@ -1,110 +1,62 @@
 #include "AudioBuffer.hpp"
 #include "WavIO/WavWriter.hpp"
 
-WavTools::Writer::Writer(uint32_t sample_rate, uint16_t num_channels, uint16_t bits_per_sample)
-    : sample_rate_(sample_rate), num_channels_(num_channels), bits_per_sample_(bits_per_sample)
-{
-}
-
-void WavTools::Writer::write_header(std::FILE *file_, uint32_t data_size)
-{
-    size_t INT_BLOCK = 1;
-    auto write_u16 = [this, file_, INT_BLOCK](uint16_t value)
+namespace audio {
+    WavWriter::WavWriter(const std::string &filename, uint32_t sample_rate,
+                         uint16_t num_channels, uint16_t bits_per_sample)
+        : file_(std::fopen(filename.c_str(), "wb"), &std::fclose), sample_rate_(sample_rate), num_channels_(num_channels), bits_per_sample_(bits_per_sample)
     {
-        std::fwrite(&value, sizeof(uint16_t), INT_BLOCK, file_);
-    };
-
-    auto write_u32 = [this, file_, INT_BLOCK](uint32_t value)
-    {
-        std::fwrite(&value, sizeof(uint32_t), INT_BLOCK, file_);
-    };
-
-    size_t WORD_BLOCK = 4;
-    auto write_id = [this, file_, WORD_BLOCK](const char *id)
-    {
-        std::fwrite(id, sizeof(char), WORD_BLOCK, file_);
-    };
-
-    // RIFF Header
-    write_id("RIFF");
-    write_u32(36 + data_size);
-    write_id("WAVE");
-
-    // fmt chunk
-    write_id("fmt ");
-    const uint32_t pcm_chunk_size = 16;
-    write_u32(pcm_chunk_size);
-    const uint16_t linear_quantization = 1;
-    write_u16(linear_quantization);
-    write_u16(num_channels_);
-    write_u32(sample_rate_);
-    uint32_t byte_rate = sample_rate_ * num_channels_ * bits_per_sample_ / 8;
-    write_u32(byte_rate);
-    uint16_t block_align = static_cast<uint16_t>(num_channels_ * bits_per_sample_ / 8);
-    write_u16(block_align);
-    write_u16(bits_per_sample_);
-
-    // data chunk
-    write_id("data");
-    write_u32(data_size);
-}
-
-template <typename SampleType>
-void WavTools::Writer::save(const std::string &filepath, const AudioBuffer<SampleType> &buffer)
-{
-    uint32_t data_size = buffer.num_samples() * buffer.num_channels() * bits_per_sample_;
-
-    std::unique_ptr<std::FILE, decltype(&std::fclose)> file_(std::fopen(filepath.c_str(), "wb"), &std::fclose);
-
-    if (!file_)
-    {
-        throw std::runtime_error("Cannot create file : " + filepath);
-    }
-
-    /// FIXED: num_channels will be dynamic now as per buffer
-    /// so now if stereo changes to mono then no problem it propogates
-    num_channels_ = buffer.num_channels();
-
-    write_header(file_.get(), data_size);
-
-    if (bits_per_sample_ == 32)
-    {
-        std::vector<float> temp(buffer.num_channels() * buffer.num_samples());
-
-        for (size_t i = 0; i < temp.size(); i++)
+        if (!file_)
         {
-            temp[i] = WavTools::convert_sample<float>(buffer.data()[i]);
+            throw std::runtime_error("Cannot create file: " + filename);
         }
 
-        std::fwrite(temp.data(), sizeof(float), temp.size(), file_.get());
-    }
-    else if (bits_per_sample_ == 16)
-    {
-        std::vector<int16_t> temp(buffer.num_channels() * buffer.num_samples());
-
-        for (size_t i = 0; i < temp.size(); i++)
+        if (bits_per_sample != 8 && bits_per_sample != 16 &&
+            bits_per_sample != 24 && bits_per_sample != 32)
         {
-            temp[i] = WavTools::convert_sample<int16_t>(buffer.data()[i]);
+            throw std::invalid_argument("Bit depth must be 8, 16, 24, or 32");
         }
-
-        std::fwrite(temp.data(), sizeof(int16_t), temp.size(), file_.get());
     }
-    else if (bits_per_sample_ == 8)
+
+    void WavWriter::write_header(uint32_t data_size)
     {
-        std::vector<uint8_t> temp(buffer.num_channels() * buffer.num_samples());
+        // RIFF header
+        write_id("RIFF");
+        write_u32(36 + data_size); // File size - 8
+        write_id("WAVE");
 
-        for (size_t i = 0; i < temp.size(); i++)
-        {
-            temp[i] = WavTools::convert_sample<uint8_t>(buffer.data()[i]);
-        }
+        // fmt chunk
+        write_id("fmt ");
+        write_u32(16); // fmt chunk size (PCM)
+        write_u16(1);  // Audio format (1 = PCM)
+        write_u16(num_channels_);
+        write_u32(sample_rate_);
 
-        std::fwrite(temp.data(), sizeof(uint8_t), temp.size(), file_.get());
+        uint32_t byte_rate = sample_rate_ * num_channels_ * bits_per_sample_ / 8;
+        write_u32(byte_rate);
+
+        uint16_t block_align = num_channels_ * bits_per_sample_ / 8;
+        write_u16(block_align);
+
+        write_u16(bits_per_sample_);
+
+        // data chunk header
+        write_id("data");
+        write_u32(data_size);
     }
-}
 
-/// @brief Explicit template definition
-template void WavTools::Writer::save<float>(const std::string &, const AudioBuffer<float> &);
+    void WavWriter::write_u16(uint16_t value)
+    {
+        std::fwrite(&value, sizeof(value), 1, file_.get());
+    }
 
-template void WavTools::Writer::save<int16_t>(const std::string &, const AudioBuffer<int16_t> &);
+    void WavWriter::write_u32(uint32_t value)
+    {
+        std::fwrite(&value, sizeof(value), 1, file_.get());
+    }
 
-template void WavTools::Writer::save<uint8_t>(const std::string &, const AudioBuffer<uint8_t> &);
+    void WavWriter::write_id(const char *id)
+    {
+        std::fwrite(id, 1, 4, file_.get());
+    }
+} // namespace audio

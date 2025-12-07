@@ -17,6 +17,8 @@
 #include <fstream>
 
 #include <iostream>
-/// For effects
 #include <algorithm>
+
+#include <tuple>
+#include <utility>
 #endif //AUDIO_ENGINE_HEADER_

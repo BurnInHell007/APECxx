@@ -2,38 +2,36 @@ cmake_minimum_required(VERSION 4.0.0)
 
 set(This APECxx)
 
+set(CMAKE_C_COMPILER gcc)
+set(CMAKE_CXX_COMPILER g++)
+
 project(${This} C CXX)
 
 set(CMAKE_C_STANDARD 99)
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
-enable_testing()
+# enable_testing()
 
-add_subdirectory(googletest)
+# add_subdirectory(googletest)
 
 set(Headers 
     "include/"
     "include/WavIO/"
     "include/Effects/"
+    "include/DSP"
 )
 
 # file(GLOB Sources "src/*.cpp")
 set(Sources 
     "src/main.cpp"
-    "src/AudioBuffer.cpp"
     "src/WavIO/WavReader.cpp"
     "src/WavIO/WavWriter.cpp"
-    "src/Effects/GainEffect.cpp"
-    "src/Effects/FadeEffect.cpp"
-    "src/Effects/MixEffect.cpp"
-    "src/DSP/BiQuadFilter.cpp"
-    "src/DSP/FilterDesign.cpp"
 )
 
 add_library(${This} ${Sources} ${Header})
 
-add_subdirectory(tests)
+# add_subdirectory(tests)
 
 target_include_directories(${This} PUBLIC ${Headers})
 

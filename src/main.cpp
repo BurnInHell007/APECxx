@@ -1,101 +1,160 @@
 #include "project.h"
 #include "WavIO/WavReader.hpp"
 #include "WavIO/WavWriter.hpp"
-#include "Effects/GainEffect.hpp"
-#include "Effects/FadeEffect.hpp"
-#include "Effects/MixEffect.hpp"
+#include "Effects/FilterEffects.hpp"
+#include "Effects/Equalizer.hpp"
+#include "Effects/BasicEffects.hpp"
 #include "DSP/BiQuadFilter.hpp"
 #include "DSP/FilterDesign.hpp"
 
-int main(int argc, char **argv)
-{
-    if (argc != 3)
-    {
-        std::cerr << "Usage: " << argv[0] << " <input.wav> <output.wav>\n";
+using namespace audio;
 
-        return -1;
+void print_usage(const char *program_name)
+{
+    std::cout << "Usage: " << program_name << " <input.wav> <output.wav> [options]\n\n"
+              << "Filter Options:\n"
+              << "  --lowpass <freq> [q]       Low-pass filter (default q=0.707)\n"
+              << "  --highpass <freq> [q]      High-pass filter (default q=0.707)\n"
+              << "  --bandpass <freq> <bw>     Band-pass filter\n"
+              << "  --notch <freq> <bw>        Notch filter\n"
+              << "  --eq <freq> <gain> [bw]    Parametric EQ band (default bw=1.0)\n"
+              << "  --bass <gain>              Adjust bass (3-band EQ)\n"
+              << "  --mid <gain>               Adjust mid (3-band EQ)\n"
+              << "  --treble <gain>            Adjust treble (3-band EQ)\n\n"
+              << "Examples:\n"
+              << "  " << program_name << " in.wav out.wav --lowpass 1000\n"
+              << "  " << program_name << " in.wav out.wav --highpass 80 --bass +3\n"
+              << "  " << program_name << " in.wav out.wav --eq 1000 -6 0.5\n";
+}
+
+int main(int argc, char *argv[])
+{
+    if (argc < 3)
+    {
+        print_usage(argv[0]);
+        return 1;
     }
+
+    std::string input_file = argv[1];
+    std::string output_file = argv[2];
 
     try
     {
-        // Read Input file
-        WavTools::Reader reader(argv[1]);
+        // Read input file
+        std::cout << "Reading: " << input_file << "\n";
+        WavReader reader(input_file);
 
-        std::cout << "Input file info:\n"
-                  << "\tSample rate: " << reader.sample_rate() << " Hz\n"
-                  << "\tChannels: " << reader.num_channels() << "\n"
-                  << "\tBit depth: " << reader.bits_per_sample() << " bits\n"
-                  << "\tDuration: " << static_cast<float>(reader.num_samples() / (float)reader.sample_rate()) << " seconds\n";
+        std::cout << "  Sample rate: " << reader.sample_rate() << " Hz\n"
+                  << "  Channels: " << reader.num_channels() << "\n"
+                  << "  Bit depth: " << reader.bits_per_sample() << " bits\n"
+                  << "  Duration: " << reader.num_samples() / (float)reader.sample_rate() << " seconds\n";
 
-        // Read audio data using float for processing precision
         auto buffer = reader.read<float>();
-        /**
-         * Can do something like
-         * AudioBuffer<float> buffer;
-         * { /// START BLOCK
-         *      WavTools::Reader reader(argv[1]);
-         *      buffer = reader.read<float>();
-         * } /// END BLOCK
-         * This will release the memory block which is created for reader
-         * Necessary when doing performance heavy works
-         */
 
-        // Write output file
-        WavTools::Writer writer(reader.sample_rate(), reader.num_channels(), reader.bits_per_sample());
+        // Parse command-line options and apply filters
+        bool use_three_band_eq = false;
+        double bass_gain = 0.0, mid_gain = 0.0, treble_gain = 0.0;
 
-        // /// To save file by default
-        // writer.save(argv[2], buffer);
+        std::vector<std::unique_ptr<effects::AudioEffect<float>>> filters;
 
-        // std::cout << "Successfully wrote " << argv[2] << "\n";
-
-        // /// Gain Effect test
-        // GainEffect<float> gainEffect(1.2f);
-        // gainEffect.process(buffer);
-
-        // writer.save("../wav-files/gainEffect.wav", buffer);
-
-        // /// Fade Effect test
-        // {
-        //     float FadeInStart = 0.1, FadeInEnd = 1.0;
-        //     size_t samples = buffer.num_samples() / 4;
-        //     FadeEffect<float> fadeIn(FadeInStart, FadeInEnd, 0, samples);
-        //     fadeIn.process(buffer);
-        //     writer.save("../wav-files/fadeInEffect.wav", buffer);
-            
-        //     float FadeOutStart = 1.0, FadeOutEnd = 0.5;
-        //     FadeEffect<float> fadeOut(FadeOutStart, FadeOutEnd, 3 * samples, samples);
-        //     fadeOut.process(buffer);
-        //     writer.save("../wav-files/fadeOutEffect.wav", buffer);
-        // }
-
-        // {
-        //     float panValue = 0.2f;
-        //     MixEffect<float> panMixEffect(true, panValue);
-        //     panMixEffect.process(buffer);
-        //     writer.save("../wav-files/panEffect.wav", buffer);
-
-        //     // MixEffect<float> mixEffect;
-        //     // mixEffect.process(buffer);
-        //     // writer.save("../wav-files/mixEffect.wav", buffer);
-        // }
-
-        // std::cout << "Sucessfully wrote Effect filters\n";
-        BiQuadFilter<float> lowPassFilter;
-        double sampleRate = static_cast<double>(reader.sample_rate());
-        BiQuadCoefficients lpCoeffs = FilterDesign::makeLowPass(sampleRate, 500.0, 0.707);
-        lowPassFilter.setCoefficients(lpCoeffs);
-
-        for (size_t i = 0; i < buffer.num_samples(); i++)
+        for (int i = 3; i < argc; ++i)
         {
-            buffer.data()[i] = lowPassFilter.process(buffer.data()[i]);
+            std::string arg = argv[i];
+
+            if (arg == "--lowpass" && i + 1 < argc)
+            {
+                double freq = std::stod(argv[++i]);
+                double q = 0.707;
+                if (i + 1 < argc && argv[i + 1][0] != '-')
+                {
+                    q = std::stod(argv[++i]);
+                }
+                std::cout << "Applying low-pass filter: " << freq << " Hz, Q=" << q << "\n";
+                filters.push_back(std::make_unique<effects::LowpassEffect<float>>(
+                    reader.sample_rate(), freq, q));
+            }
+            else if (arg == "--highpass" && i + 1 < argc)
+            {
+                double freq = std::stod(argv[++i]);
+                double q = 0.707;
+                if (i + 1 < argc && argv[i + 1][0] != '-')
+                {
+                    q = std::stod(argv[++i]);
+                }
+                std::cout << "Applying high-pass filter: " << freq << " Hz, Q=" << q << "\n";
+                filters.push_back(std::make_unique<effects::HighpassEffect<float>>(
+                    reader.sample_rate(), freq, q));
+            }
+            else if (arg == "--bandpass" && i + 2 < argc)
+            {
+                double freq = std::stod(argv[++i]);
+                double bw = std::stod(argv[++i]);
+                std::cout << "Applying band-pass filter: " << freq << " Hz, BW=" << bw << "\n";
+                filters.push_back(std::make_unique<effects::BandpassEffect<float>>(
+                    reader.sample_rate(), freq, bw));
+            }
+            else if (arg == "--eq" && i + 2 < argc)
+            {
+                double freq = std::stod(argv[++i]);
+                double gain = std::stod(argv[++i]);
+                double bw = 1.0;
+                if (i + 1 < argc && argv[i + 1][0] != '-')
+                {
+                    bw = std::stod(argv[++i]);
+                }
+                std::cout << "Applying EQ: " << freq << " Hz, "
+                          << (gain >= 0 ? "+" : "") << gain << " dB, BW=" << bw << "\n";
+                filters.push_back(std::make_unique<effects::ParametricEQBand<float>>(
+                    reader.sample_rate(), freq, gain, bw));
+            }
+            else if (arg == "--bass" && i + 1 < argc)
+            {
+                use_three_band_eq = true;
+                bass_gain = std::stod(argv[++i]);
+                std::cout << "Bass: " << (bass_gain >= 0 ? "+" : "") << bass_gain << " dB\n";
+            }
+            else if (arg == "--mid" && i + 1 < argc)
+            {
+                use_three_band_eq = true;
+                mid_gain = std::stod(argv[++i]);
+                std::cout << "Mid: " << (mid_gain >= 0 ? "+" : "") << mid_gain << " dB\n";
+            }
+            else if (arg == "--treble" && i + 1 < argc)
+            {
+                use_three_band_eq = true;
+                treble_gain = std::stod(argv[++i]);
+                std::cout << "Treble: " << (treble_gain >= 0 ? "+" : "") << treble_gain << " dB\n";
+            }
         }
 
-        writer.save("../wav-files/testfile.lowPassFilter.wav", buffer);
-        std::cout << "Filter done\n";
+        // Apply three-band EQ if requested
+        if (use_three_band_eq)
+        {
+            auto eq = std::make_unique<effects::ThreeBandEQ<float>>(reader.sample_rate());
+            eq->set_bass(bass_gain);
+            eq->set_mid(mid_gain);
+            eq->set_treble(treble_gain);
+            filters.push_back(std::move(eq));
+        }
+
+        // Process audio through all filters
+        std::cout << "\nProcessing audio...\n";
+        for (auto &filter : filters)
+        {
+            filter->process(buffer);
+        }
+
+        // Write output file
+        std::cout << "Writing: " << output_file << "\n";
+        WavWriter writer(output_file, reader.sample_rate(),
+                         reader.num_channels(), reader.bits_per_sample());
+        writer.write(buffer);
+
+        std::cout << "Done!\n";
     }
     catch (const std::exception &e)
     {
-        std::cerr << "Error : " << e.what() << "\n";
+        std::cerr << "Error: " << e.what() << "\n";
         return 1;
     }
 
