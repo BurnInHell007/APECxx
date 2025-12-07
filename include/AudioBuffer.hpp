@@ -48,13 +48,59 @@ namespace audio
 
         virtual ~AudioBuffer() = default;
 
-        AudioBuffer(const AudioBuffer &other) = delete;
+        // Copy constructor
+        AudioBuffer(const AudioBuffer &other)
+            : buffer_(std::make_unique<SampleType[]>(other.num_samples_ * other.num_channels_)), num_samples_(other.num_samples_), num_channels_(other.num_channels_)
+        {
+            std::copy_n(other.buffer_.get(),
+                        num_samples_ * num_channels_,
+                        buffer_.get());
+        }
 
-        AudioBuffer &operator=(const AudioBuffer &other) = delete;
+        // Copy assignment
+        AudioBuffer &operator=(const AudioBuffer &other)
+        {
+            if (this != &other)
+            {
+                // Create new buffer
+                auto new_buffer = std::make_unique<SampleType[]>(
+                    other.num_samples_ * other.num_channels_);
 
-        AudioBuffer(AudioBuffer &&other) noexcept = default;
+                // Copy data
+                std::copy_n(other.buffer_.get(),
+                            other.num_samples_ * other.num_channels_,
+                            new_buffer.get());
 
-        AudioBuffer &operator=(AudioBuffer &&other) noexcept = default;
+                // Update members
+                buffer_ = std::move(new_buffer);
+                num_samples_ = other.num_samples_;
+                num_channels_ = other.num_channels_;
+            }
+            return *this;
+        }
+
+        // Move constructor
+        AudioBuffer(AudioBuffer &&other) noexcept
+            : buffer_(std::move(other.buffer_)), num_samples_(other.num_samples_), num_channels_(other.num_channels_)
+        {
+            other.num_samples_ = 0;
+            other.num_channels_ = 0;
+        }
+
+        // Move assignment
+        AudioBuffer &operator=(AudioBuffer &&other) noexcept
+        {
+            if (this != &other)
+            {
+                buffer_ = std::move(other.buffer_);
+                num_samples_ = other.num_samples_;
+                num_channels_ = other.num_channels_;
+
+                other.num_samples_ = 0;
+                other.num_channels_ = 0;
+            }
+            return *this;
+        }
 
         /**
          * @brief Access sample at (sample_index, channel)
@@ -177,5 +223,29 @@ namespace audio
                 (*this)(i, channel) = source(i, 0);
             }
         }
-    };
+
+        // Apply gain to entire buffer
+        void apply_gain(float gain)
+        {
+            for (size_t i = 0; i < total_samples(); ++i)
+            {
+                buffer_[i] = static_cast<SampleType>(buffer_[i] * gain);
+            }
+        }
+
+        // Mix (add) another buffer into this one
+        void mix(const AudioBuffer &other, float gain = 1.0f)
+        {
+            if (num_samples_ != other.num_samples_ || num_channels_ != other.num_channels_)
+            {
+                throw std::invalid_argument("Buffer dimensions must match for mixing");
+            }
+
+            for (size_t i = 0; i < total_samples(); ++i)
+            {
+                buffer_[i] = static_cast<SampleType>(
+                    buffer_[i] + other.buffer_[i] * gain);
+            }
+        }
+    }; // class AudioBuffer
 } // namespace audio

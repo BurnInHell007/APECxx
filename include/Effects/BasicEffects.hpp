@@ -306,6 +306,8 @@ namespace audio
 
             void convert_mono_to_stereo(AudioBuffer<SampleType> &buffer)
             {
+                std::cout << buffer.num_channels() << std::endl;
+                return;
                 // This would require resizing the buffer, which is complex
                 // For now, just duplicate the mono channel
                 // (In practice, you'd create a new buffer with 2 channels)

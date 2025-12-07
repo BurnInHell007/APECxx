@@ -72,6 +72,30 @@ In the build folder now you can access `APECxx_Run.exe`, use it as follow:
 .\APECxx_Run.exe <input_path.wav> <output_path.wav>
 ```
 
+For powerShell
+```powershell
+# Windows (MinGW)
+# Clean build
+Remove-Item -Recurse -Force build -ErrorAction SilentlyContinue
+New-Item -ItemType Directory -Path build
+Set-Location build
+
+# Configure
+cmake -G "MinGW Makefiles" -DCMAKE_BUILD_TYPE=Release ..
+
+# Build
+mingw32-make -j4
+
+# Run main program
+.\bin\audio_tool.exe
+
+# Run tests
+.\bin\audio_tests.exe
+
+# Or use CTest
+ctest --output-on-failure
+```
+
 ---
 
 ## 🤝 Connect
